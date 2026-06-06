@@ -231,6 +231,26 @@ body{font-family:'Source Sans 3',sans-serif;background:var(--off);color:var(--te
 .dsum-row-pct{font-size:10px;color:var(--muted);margin-top:1px;text-align:right;}
 .dsum-prog{margin-top:6px;height:4px;background:var(--border);border-radius:2px;overflow:hidden;}
 .dsum-prog-fill{height:100%;border-radius:2px;}
+
+/* ── ENTRIES TABLE ── */
+.dash-entries-wrap{background:#fff;border:1.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:32px;}
+.dash-entries-head{padding:14px 20px;border-bottom:1.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:#fafbfc;}
+.dash-entries-title{font-size:13px;font-weight:700;color:var(--navy);letter-spacing:0.2px;}
+.dash-filter-sel{border:1.5px solid var(--border);border-radius:7px;padding:6px 10px;font-size:12px;font-family:'Source Sans 3',sans-serif;color:var(--text);background:#fff;outline:none;cursor:pointer;}
+.dash-filter-sel:focus{border-color:var(--red);}
+.dash-refresh-btn{background:#fff;border:1.5px solid var(--border);color:var(--muted);padding:6px 12px;border-radius:7px;font-family:'Source Sans 3',sans-serif;font-size:12px;cursor:pointer;font-weight:600;transition:all .15s;}
+.dash-refresh-btn:hover{border-color:var(--red);color:var(--red);}
+.dash-entries-empty{padding:40px;text-align:center;color:var(--muted);font-size:13px;}
+.entries-table{width:100%;border-collapse:collapse;font-size:12px;}
+.entries-table th{padding:10px 14px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);border-bottom:1.5px solid var(--border);background:#fafbfc;white-space:nowrap;}
+.entries-table td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:middle;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.entries-table tr:last-child td{border-bottom:none;}
+.entries-table tr:hover td{background:#fdf5f5;}
+.et-badge{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:0.8px;text-transform:uppercase;}
+.et-ext-fac{background:#fde8e8;color:var(--red);}
+.et-ext-stu{background:#eff6ff;color:#2563eb;}
+.et-int-fac{background:#ecfdf5;color:#059669;}
+.et-int-stu{background:#f5f3ff;color:#7c3aed;}
 </style>
 </head>
 <body>
@@ -380,79 +400,26 @@ body{font-family:'Source Sans 3',sans-serif;background:var(--off);color:var(--te
         </div>
       </div>
 
-      <!-- Summary breakdown cards -->
-      <div class="dash-row2">
-        <div class="dsum">
-          <div class="dsum-head" style="background:var(--red);">
-            <div class="dsum-head-icon" style="background:rgba(255,255,255,0.18);">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-            </div>
-            <div>
-              <div class="dsum-head-title">Faculty Projects</div>
-              <div class="dsum-head-sub">Extramural &amp; Intramural breakdown</div>
-            </div>
-            <div class="dsum-head-total" id="dash-fac-total2">0</div>
+      <!-- Recent Entries Table -->
+      <div class="dash-entries-wrap">
+        <div class="dash-entries-head">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+            <span class="dash-entries-title">All Project Submissions</span>
           </div>
-          <div class="dsum-body">
-            <div class="dsum-row">
-              <div class="dsum-row-left">
-                <div class="dsum-dot" style="background:#2563eb;"></div>
-                <div class="dsum-row-lbl">Extramural Faculty</div>
-              </div>
-              <div>
-                <div class="dsum-row-val" id="dash-sfac-ext">0</div>
-                <div class="dsum-row-pct" id="dash-sfac-ext-pct">0% of faculty</div>
-              </div>
-            </div>
-            <div class="dsum-prog"><div class="dsum-prog-fill" id="dash-sfac-ext-prog" style="background:#2563eb;width:0%;"></div></div>
-            <div class="dsum-row" style="margin-top:10px;">
-              <div class="dsum-row-left">
-                <div class="dsum-dot" style="background:#059669;"></div>
-                <div class="dsum-row-lbl">Intramural Faculty</div>
-              </div>
-              <div>
-                <div class="dsum-row-val" id="dash-sfac-int">0</div>
-                <div class="dsum-row-pct" id="dash-sfac-int-pct">0% of faculty</div>
-              </div>
-            </div>
-            <div class="dsum-prog"><div class="dsum-prog-fill" id="dash-sfac-int-prog" style="background:#059669;width:0%;"></div></div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <select id="dash-filter-type" class="dash-filter-sel" onchange="renderEntriesTable()">
+              <option value="">All Types</option>
+              <option value="ext_fac">Extramural Faculty</option>
+              <option value="ext_stu">Extramural Student</option>
+              <option value="int_fac">Intramural Faculty</option>
+              <option value="int_stu">Intramural Student</option>
+            </select>
+            <button class="dash-refresh-btn" onclick="loadDashboard()">↻ Refresh</button>
           </div>
         </div>
-        <div class="dsum">
-          <div class="dsum-head" style="background:var(--navy);">
-            <div class="dsum-head-icon" style="background:rgba(255,255,255,0.18);">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-            </div>
-            <div>
-              <div class="dsum-head-title">Student Projects</div>
-              <div class="dsum-head-sub">Extramural &amp; Intramural breakdown</div>
-            </div>
-            <div class="dsum-head-total" id="dash-stu-total2">0</div>
-          </div>
-          <div class="dsum-body">
-            <div class="dsum-row">
-              <div class="dsum-row-left">
-                <div class="dsum-dot" style="background:#2563eb;"></div>
-                <div class="dsum-row-lbl">Extramural Student</div>
-              </div>
-              <div>
-                <div class="dsum-row-val" id="dash-sstu-ext">0</div>
-                <div class="dsum-row-pct" id="dash-sstu-ext-pct">0% of students</div>
-              </div>
-            </div>
-            <div class="dsum-prog"><div class="dsum-prog-fill" id="dash-sstu-ext-prog" style="background:#2563eb;width:0%;"></div></div>
-            <div class="dsum-row" style="margin-top:10px;">
-              <div class="dsum-row-left">
-                <div class="dsum-dot" style="background:#059669;"></div>
-                <div class="dsum-row-lbl">Intramural Student</div>
-              </div>
-              <div>
-                <div class="dsum-row-val" id="dash-sstu-int">0</div>
-                <div class="dsum-row-pct" id="dash-sstu-int-pct">0% of students</div>
-              </div>
-            </div>
-            <div class="dsum-prog"><div class="dsum-prog-fill" id="dash-sstu-int-prog" style="background:#059669;width:0%;"></div></div>
-          </div>
+        <div id="dash-entries-body">
+          <div class="dash-entries-empty">Loading entries…</div>
         </div>
       </div>
     </div>
@@ -656,7 +623,8 @@ body{font-family:'Source Sans 3',sans-serif;background:var(--off);color:var(--te
 <div class="toast" id="toast"></div>
 
 <script>
-var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzG-DuM1AgY-Rpoi1MhH0glXj8ZsyA7RN076MrQxK2uZ4-dzpC4FLvZkrh-81P1mhKI/exec";
+var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxHfTa7D8S468epRs4Ltg-Ho8oZPhq1OPEwq52lFnpWDIyd2KHtPI3aOOQQxeDmvBfJ/exec";
+var _allEntries = [];
 
 var SDG_DATA = [
   {n:1,  label:"No Poverty",                              color:"#E5243B"},
@@ -695,6 +663,77 @@ var SHORT = {
   "Partnerships for the Goals":"Partnerships\nfor the..."
 };
 
+// ── Dashboard: load stats + entries ──────────────────────────
+function loadDashboard() {
+  document.getElementById('dash-entries-body').innerHTML = '<div class="dash-entries-empty">Loading entries…</div>';
+  fetch(SCRIPT_URL + '?action=stats')
+    .then(function(r){ return r.json(); })
+    .then(function(d) {
+      var ef = d.ext_fac||0, es = d.ext_stu||0, if2 = d.int_fac||0, is2 = d.int_stu||0;
+      var facT = ef + if2, stuT = es + is2, extT = ef + es, intT = if2 + is2, total = facT + stuT;
+      set('dash-fac-total', facT); set('dash-fac-ext', ef); set('dash-fac-int', if2);
+      set('dash-stu-total', stuT); set('dash-stu-ext', es); set('dash-stu-int', is2);
+      set('dash-ext-total', extT); set('dash-ext-fac', ef); set('dash-ext-stu', es);
+      set('dash-int-total', intT); set('dash-int-fac', if2); set('dash-int-stu', is2);
+      bar('dash-fac-bar', total ? facT/total*100 : 0);
+      bar('dash-stu-bar', total ? stuT/total*100 : 0);
+      bar('dash-ext-bar', total ? extT/total*100 : 0);
+      bar('dash-int-bar', total ? intT/total*100 : 0);
+      // hero stats
+      var hn = document.querySelectorAll('.hstat-n');
+      if (hn[0]) hn[0].textContent = total;
+    }).catch(function(){});
+
+  fetch(SCRIPT_URL + '?action=entries')
+    .then(function(r){ return r.json(); })
+    .then(function(d) {
+      _allEntries = d.entries || [];
+      renderEntriesTable();
+    }).catch(function(){
+      document.getElementById('dash-entries-body').innerHTML = '<div class="dash-entries-empty">Could not load entries. Check script deployment.</div>';
+    });
+}
+
+function set(id, v) { var el = document.getElementById(id); if(el) el.textContent = v; }
+function bar(id, pct) { var el = document.getElementById(id); if(el) el.style.width = pct + '%'; }
+
+function renderEntriesTable() {
+  var filter = document.getElementById('dash-filter-type').value;
+  var rows = _allEntries.filter(function(r){ return !filter || r.type === filter; });
+  var body = document.getElementById('dash-entries-body');
+  if (!rows.length) {
+    body.innerHTML = '<div class="dash-entries-empty">No entries found.</div>';
+    return;
+  }
+  var badgeMap = { ext_fac:'et-ext-fac', ext_stu:'et-ext-stu', int_fac:'et-int-fac', int_stu:'et-int-stu' };
+  var labelMap = { ext_fac:'Ext Faculty', ext_stu:'Ext Student', int_fac:'Int Faculty', int_stu:'Int Student' };
+  var html = '<table class="entries-table"><thead><tr>' +
+    '<th>#</th><th>Date</th><th>Type</th><th>College</th><th>Name / PI</th><th>Project Title</th><th>SDG Goals</th>' +
+    '</tr></thead><tbody>';
+  rows.forEach(function(r, i) {
+    var cls = badgeMap[r.type] || '';
+    var lbl = labelMap[r.type] || r.type;
+    html += '<tr>' +
+      '<td style="color:var(--muted);">' + (i+1) + '</td>' +
+      '<td style="white-space:nowrap;">' + esc(r.timestamp||'') + '</td>' +
+      '<td><span class="et-badge ' + cls + '">' + lbl + '</span></td>' +
+      '<td title="' + esc(r.college||'') + '">' + esc(r.college||'—') + '</td>' +
+      '<td title="' + esc(r.name||'') + '">' + esc(r.name||'—') + '</td>' +
+      '<td title="' + esc(r.title||'') + '">' + esc(r.title||'—') + '</td>' +
+      '<td title="' + esc(r.sdg||'') + '" style="max-width:160px;">' + esc(r.sdg||'—') + '</td>' +
+    '</tr>';
+  });
+  html += '</tbody></table>';
+  body.innerHTML = html;
+}
+
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// Auto-load dashboard on page open
+window.addEventListener('DOMContentLoaded', function(){ loadDashboard(); });
+
 function sdgHtml(uid) {
   var html = '<div class="sdg-grid" id="sdg-' + uid + '">';
   SDG_DATA.forEach(function(s) {
@@ -728,7 +767,7 @@ function facForm(t) {
   '<div class="f"><label>Title of Project <span class="req">*</span></label><input type="text" name="projectTitle" placeholder="Enter full title of the research project"></div>' +
   '<div class="r2">' +
   '<div class="f"><label>Type of Project <span class="req">*</span></label>' +
-  '<select name="projectType"><option value="">Select Type</option><option>Basic Research</option><option>Applied Research</option><option>Clinical Research</option><option>Translational Research</option><option>Epidemiological Study</option><option>Case Study / Case Series</option><option>Systematic Review / Meta-analysis</option><option>Observational Study</option><option>Interventional Study</option><option>In-vitro Study</option><option>Animal Study</option></select></div>' +
+  '<input type="text" name="projectType" placeholder="e.g. Clinical Research, Basic Research, Observational Study…"></div>' +
   '<div class="f"><label>Research Domain</label>' +
   '<input type="text" name="researchDomain" placeholder="e.g. Biomedical Sciences, Clinical Sciences"></div>' +
   '</div>' +
@@ -831,8 +870,6 @@ function stuForm(t) {
   '<div class="sec"><div class="sec-lbl">Project Information</div>' +
   '<div class="f"><label>Title of Project <span class="req">*</span></label><input type="text" name="projectTitle" placeholder="Enter full title of the research project"></div>' +
   '<div class="r2">' +
-  '<div class="f"><label>Type of Project <span class="req">*</span></label>' +
-  '<select name="projectType"><option value="">Select Type</option><option>Dissertation / Thesis</option><option>Short Term Studentship (STS)</option><option>Case Study</option><option>Observational Study</option><option>Interventional Study</option><option>Systematic Review</option><option>In-vitro Study</option></select></div>' +
   '<div class="f"><label>Duration (months)</label><input type="number" name="duration" min="1" max="36" placeholder="e.g. 6"></div>' +
   '</div></div>' +
   '<div class="sec"><div class="sec-lbl">Guide &amp; Co-Guide</div>' +
