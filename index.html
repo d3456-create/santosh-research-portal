@@ -194,6 +194,43 @@ body{font-family:'Source Sans 3',sans-serif;background:var(--off);color:var(--te
 .ftr-bottom-links{display:flex;gap:16px;}
 .ftr-bottom-links a{font-size:11px;color:rgba(255,255,255,0.3);text-decoration:none;}
 .ftr-bottom-links a:hover{color:rgba(255,255,255,0.6);}
+
+/* ── DASHBOARD ── */
+.dash-section{margin-bottom:32px;}
+.dash-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:16px;}
+.dash-row2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px;}
+.dcard{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:20px 22px;position:relative;overflow:hidden;transition:box-shadow .15s,border-color .15s;}
+.dcard:hover{box-shadow:0 6px 22px rgba(192,39,45,0.10);border-color:var(--red);}
+.dcard-accent{position:absolute;top:0;left:0;width:4px;height:100%;border-radius:14px 0 0 14px;}
+.dcard-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
+.dcard-icon svg{width:20px;height:20px;}
+.dcard-val{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;line-height:1;margin-bottom:4px;}
+.dcard-lbl{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-weight:600;margin-bottom:10px;}
+.dcard-sub{font-size:11px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;}
+.dcard-sub span{display:flex;align-items:center;gap:4px;}
+.dcard-sub b{font-weight:700;}
+.dcard-badge{display:inline-block;font-size:9px;letter-spacing:1px;font-weight:700;padding:2px 7px;border-radius:3px;text-transform:uppercase;margin-bottom:12px;}
+/* split bar */
+.split-bar{margin-top:12px;height:6px;border-radius:3px;background:var(--border);overflow:hidden;}
+.split-bar-fill{height:100%;border-radius:3px;transition:width .4s;}
+/* big summary cards */
+.dsum{background:#fff;border:1.5px solid var(--border);border-radius:14px;overflow:hidden;}
+.dsum-head{padding:16px 22px;display:flex;align-items:center;gap:12px;}
+.dsum-head-icon{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.dsum-head-icon svg{width:18px;height:18px;}
+.dsum-head-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:#fff;}
+.dsum-head-sub{font-size:10px;color:rgba(255,255,255,0.7);letter-spacing:0.5px;margin-top:1px;}
+.dsum-head-total{margin-left:auto;font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:#fff;line-height:1;}
+.dsum-body{padding:18px 22px;}
+.dsum-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);}
+.dsum-row:last-child{border-bottom:none;}
+.dsum-row-left{display:flex;align-items:center;gap:10px;}
+.dsum-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.dsum-row-lbl{font-size:12.5px;color:var(--text);font-weight:500;}
+.dsum-row-val{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--navy);}
+.dsum-row-pct{font-size:10px;color:var(--muted);margin-top:1px;text-align:right;}
+.dsum-prog{margin-top:6px;height:4px;background:var(--border);border-radius:2px;overflow:hidden;}
+.dsum-prog-fill{height:100%;border-radius:2px;}
 </style>
 </head>
 <body>
@@ -282,6 +319,143 @@ body{font-family:'Source Sans 3',sans-serif;background:var(--off);color:var(--te
 
   <!-- HOME VIEW -->
   <div id="home-view">
+
+    <!-- DASHBOARD -->
+    <div class="dash-section">
+      <div class="section-title">Research Projects Overview</div>
+
+      <!-- Top 4 KPI Cards -->
+      <div class="dash-row">
+        <div class="dcard">
+          <div class="dcard-accent" style="background:var(--red);"></div>
+          <div class="dcard-icon" style="background:#fde8e8;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          </div>
+          <div class="dcard-val" style="color:var(--red);" id="dash-fac-total">0</div>
+          <div class="dcard-lbl">Faculty Projects</div>
+          <div class="dcard-sub">
+            <span><b id="dash-fac-ext">0</b>&nbsp;Extramural</span>
+            <span><b id="dash-fac-int">0</b>&nbsp;Intramural</span>
+          </div>
+          <div class="split-bar"><div class="split-bar-fill" id="dash-fac-bar" style="background:var(--red);width:0%;"></div></div>
+        </div>
+        <div class="dcard">
+          <div class="dcard-accent" style="background:var(--navy);"></div>
+          <div class="dcard-icon" style="background:#e8eaf6;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.8" stroke-linecap="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </div>
+          <div class="dcard-val" style="color:var(--navy);" id="dash-stu-total">0</div>
+          <div class="dcard-lbl">Student Projects</div>
+          <div class="dcard-sub">
+            <span><b id="dash-stu-ext">0</b>&nbsp;Extramural</span>
+            <span><b id="dash-stu-int">0</b>&nbsp;Intramural</span>
+          </div>
+          <div class="split-bar"><div class="split-bar-fill" id="dash-stu-bar" style="background:var(--navy);width:0%;"></div></div>
+        </div>
+        <div class="dcard">
+          <div class="dcard-accent" style="background:#2563eb;"></div>
+          <div class="dcard-icon" style="background:#eff6ff;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <div class="dcard-val" style="color:#2563eb;" id="dash-ext-total">0</div>
+          <div class="dcard-lbl">Extramural Total</div>
+          <div class="dcard-sub">
+            <span><b id="dash-ext-fac">0</b>&nbsp;Faculty</span>
+            <span><b id="dash-ext-stu">0</b>&nbsp;Student</span>
+          </div>
+          <div class="split-bar"><div class="split-bar-fill" id="dash-ext-bar" style="background:#2563eb;width:0%;"></div></div>
+        </div>
+        <div class="dcard">
+          <div class="dcard-accent" style="background:#059669;"></div>
+          <div class="dcard-icon" style="background:#ecfdf5;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="1.8" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div class="dcard-val" style="color:#059669;" id="dash-int-total">0</div>
+          <div class="dcard-lbl">Intramural Total</div>
+          <div class="dcard-sub">
+            <span><b id="dash-int-fac">0</b>&nbsp;Faculty</span>
+            <span><b id="dash-int-stu">0</b>&nbsp;Student</span>
+          </div>
+          <div class="split-bar"><div class="split-bar-fill" id="dash-int-bar" style="background:#059669;width:0%;"></div></div>
+        </div>
+      </div>
+
+      <!-- Summary breakdown cards -->
+      <div class="dash-row2">
+        <div class="dsum">
+          <div class="dsum-head" style="background:var(--red);">
+            <div class="dsum-head-icon" style="background:rgba(255,255,255,0.18);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            </div>
+            <div>
+              <div class="dsum-head-title">Faculty Projects</div>
+              <div class="dsum-head-sub">Extramural &amp; Intramural breakdown</div>
+            </div>
+            <div class="dsum-head-total" id="dash-fac-total2">0</div>
+          </div>
+          <div class="dsum-body">
+            <div class="dsum-row">
+              <div class="dsum-row-left">
+                <div class="dsum-dot" style="background:#2563eb;"></div>
+                <div class="dsum-row-lbl">Extramural Faculty</div>
+              </div>
+              <div>
+                <div class="dsum-row-val" id="dash-sfac-ext">0</div>
+                <div class="dsum-row-pct" id="dash-sfac-ext-pct">0% of faculty</div>
+              </div>
+            </div>
+            <div class="dsum-prog"><div class="dsum-prog-fill" id="dash-sfac-ext-prog" style="background:#2563eb;width:0%;"></div></div>
+            <div class="dsum-row" style="margin-top:10px;">
+              <div class="dsum-row-left">
+                <div class="dsum-dot" style="background:#059669;"></div>
+                <div class="dsum-row-lbl">Intramural Faculty</div>
+              </div>
+              <div>
+                <div class="dsum-row-val" id="dash-sfac-int">0</div>
+                <div class="dsum-row-pct" id="dash-sfac-int-pct">0% of faculty</div>
+              </div>
+            </div>
+            <div class="dsum-prog"><div class="dsum-prog-fill" id="dash-sfac-int-prog" style="background:#059669;width:0%;"></div></div>
+          </div>
+        </div>
+        <div class="dsum">
+          <div class="dsum-head" style="background:var(--navy);">
+            <div class="dsum-head-icon" style="background:rgba(255,255,255,0.18);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            </div>
+            <div>
+              <div class="dsum-head-title">Student Projects</div>
+              <div class="dsum-head-sub">Extramural &amp; Intramural breakdown</div>
+            </div>
+            <div class="dsum-head-total" id="dash-stu-total2">0</div>
+          </div>
+          <div class="dsum-body">
+            <div class="dsum-row">
+              <div class="dsum-row-left">
+                <div class="dsum-dot" style="background:#2563eb;"></div>
+                <div class="dsum-row-lbl">Extramural Student</div>
+              </div>
+              <div>
+                <div class="dsum-row-val" id="dash-sstu-ext">0</div>
+                <div class="dsum-row-pct" id="dash-sstu-ext-pct">0% of students</div>
+              </div>
+            </div>
+            <div class="dsum-prog"><div class="dsum-prog-fill" id="dash-sstu-ext-prog" style="background:#2563eb;width:0%;"></div></div>
+            <div class="dsum-row" style="margin-top:10px;">
+              <div class="dsum-row-left">
+                <div class="dsum-dot" style="background:#059669;"></div>
+                <div class="dsum-row-lbl">Intramural Student</div>
+              </div>
+              <div>
+                <div class="dsum-row-val" id="dash-sstu-int">0</div>
+                <div class="dsum-row-pct" id="dash-sstu-int-pct">0% of students</div>
+              </div>
+            </div>
+            <div class="dsum-prog"><div class="dsum-prog-fill" id="dash-sstu-int-prog" style="background:#059669;width:0%;"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Portal Entry Cards -->
     <div class="section-title">Submit a Research Project</div>
@@ -556,7 +730,7 @@ function facForm(t) {
   '<div class="f"><label>Type of Project <span class="req">*</span></label>' +
   '<select name="projectType"><option value="">Select Type</option><option>Basic Research</option><option>Applied Research</option><option>Clinical Research</option><option>Translational Research</option><option>Epidemiological Study</option><option>Case Study / Case Series</option><option>Systematic Review / Meta-analysis</option><option>Observational Study</option><option>Interventional Study</option><option>In-vitro Study</option><option>Animal Study</option></select></div>' +
   '<div class="f"><label>Research Domain</label>' +
-  '<select name="researchDomain"><option value="">Select Domain</option><option>Biomedical Sciences</option><option>Clinical Sciences</option><option>Community Health</option><option>Dental Sciences</option><option>Nursing Sciences</option><option>Pharmaceutical Sciences</option><option>Allied Health</option></select></div>' +
+  '<input type="text" name="researchDomain" placeholder="e.g. Biomedical Sciences, Clinical Sciences"></div>' +
   '</div>' +
   '<div class="r2">' +
   '<div class="f"><label>Duration (months)</label><input type="number" name="duration" min="1" max="60" placeholder="e.g. 24"></div>' +
