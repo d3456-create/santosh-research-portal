@@ -748,10 +748,8 @@ function facForm(t) {
   '</div></div>' +
   '<div class="sec"><div class="sec-lbl">Ethics &amp; Identification</div>' +
   '<div class="r2">' +
-  '<div class="f"><label>IEC Status <span class="req">*</span></label>' +
-  '<select name="iecStatus" id="' + t + '-iec-s" onchange="toggleIEC(\'' + t + '\')">' +
-  '<option value="">Select</option><option value="new">New IEC — Apply for ID</option><option value="existing">Existing IEC — Enter ID</option><option value="exempt">IEC Exempt</option><option value="na">Not Applicable</option></select></div>' +
-  '<div class="f" id="' + t + '-iec-f" style="display:none"><label>IEC ID Number</label><input type="text" name="iecId" placeholder="IEC/XXXX/XXXX"></div>' +
+  '<div class="f"><label>IEC Date Approved <span class="req">*</span></label>' +
+  '<input type="date" name="iecDateApproved"></div>' +
   '</div>' +
   '<div class="r2">' +
   '<div class="f"><label>ORCID ID (PI)</label><input type="text" name="orcidPi" placeholder="0000-0000-0000-0000"></div>' +
@@ -852,10 +850,8 @@ function stuForm(t) {
   '</div></div>' +
   '<div class="sec"><div class="sec-lbl">Ethics Clearance</div>' +
   '<div class="r2">' +
-  '<div class="f"><label>IEC Status <span class="req">*</span></label>' +
-  '<select name="iecStatus" id="' + t + 's-iec-s" onchange="toggleIECS(\'' + t + '\')">' +
-  '<option value="">Select</option><option value="new">New — Apply for IEC ID</option><option value="existing">Existing IEC ID</option><option value="exempt">IEC Exempt</option><option value="na">Not Applicable</option></select></div>' +
-  '<div class="f" id="' + t + 's-iec-f" style="display:none"><label>IEC ID Number</label><input type="text" name="iecId" placeholder="IEC/XXXX/XXXX"></div>' +
+  '<div class="f"><label>IEC Date Approved <span class="req">*</span></label>' +
+  '<input type="date" name="iecDateApproved"></div>' +
   '</div></div>' +
   (isE ?
   '<div class="sec"><div class="sec-lbl">Funding Details</div>' +
