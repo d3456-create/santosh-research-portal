@@ -482,7 +482,7 @@ body{font-family:'Source Sans 3',sans-serif;background:var(--off);color:var(--te
 <div class="toast" id="toast"></div>
 
 <script>
-var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwFr_9hC1uNlbHnCGNvqun3G725KD9RJjtSoLtkSw6ALG5XsSQuN0OmFnXoy1fn5tUe/exec";
+var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzG-DuM1AgY-Rpoi1MhH0glXj8ZsyA7RN076MrQxK2uZ4-dzpC4FLvZkrh-81P1mhKI/exec";
 
 var SDG_DATA = [
   {n:1,  label:"No Poverty",                              color:"#E5243B"},
@@ -549,7 +549,7 @@ function facForm(t) {
   '<div class="r2">' +
   '<div class="f"><label>College / Institution <span class="req">*</span></label>' +
   '<select name="college"><option value="">Select College</option><option>Santosh Medical College &amp; Hospital</option><option>Santosh Dental College</option><option>CRF/DBMR</option><option>Santosh College of Allied Health Sciences</option></select></div>' +
-  </div>' +
+  '</div></div>' +
   '<div class="sec"><div class="sec-lbl">Project Information</div>' +
   '<div class="f"><label>Title of Project <span class="req">*</span></label><input type="text" name="projectTitle" placeholder="Enter full title of the research project"></div>' +
   '<div class="r2">' +
@@ -640,8 +640,6 @@ function stuForm(t) {
   '<div class="r2">' +
   '<div class="f"><label>College <span class="req">*</span></label>' +
   '<select name="college"><option value="">Select College</option><option>Santosh Medical College &amp; Hospital</option><option>Santosh Dental College</option><option>CRF/DBMR</option><option>Santosh College of Allied Health Sciences</option></select></div>' +
-  '<div class="f"><label>Department <span class="req">*</span></label>' +
-  '<select name="department"><option value="">Select Department</option><option>Anatomy</option><option>Physiology</option><option>Biochemistry</option><option>Pathology</option><option>Microbiology</option><option>Pharmacology</option><option>Medicine</option><option>Surgery</option><option>Other</option></select></div>' +
   '</div>' +
   '<div class="r3">' +
   '<div class="f"><label>Programme <span class="req">*</span></label>' +
@@ -718,7 +716,6 @@ function submitForm(formType, cardId, sdgId, btnId) {
   var data = { formType: formType };
   var fields = card.querySelectorAll('input[name], select[name], textarea[name]');
   fields.forEach(function(el) {
-    if (el.type === 'file') return;
     if (el.closest('.f') && el.closest('.f').style.display === 'none') return;
     data[el.name] = el.value;
   });
@@ -733,53 +730,29 @@ function submitForm(formType, cardId, sdgId, btnId) {
   var orig = btn.textContent;
   btn.textContent = 'Submitting...';
   btn.disabled = true;
-
-  function doPost(payload) {
-    fetch(SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    })
-    .then(function() {
-      btn.textContent = '✓ Submitted!';
-      btn.style.background = '#1b6e35';
-      showToast('✅ Project submitted successfully!', 'ok');
-      setTimeout(function() {
-        btn.textContent = orig;
-        btn.style.background = '';
-        btn.disabled = false;
-      }, 3500);
-    })
-    .catch(function(err) {
-      btn.textContent = '⚠ Error — Retry';
-      btn.style.background = '#c0392b';
-      btn.disabled = false;
-      showToast('❌ Submission failed. Check console.', 'err');
-      console.error(err);
-    });
-  }
-
-  // Read first file input as base64 and attach to payload
-  var fileInput = card.querySelector('input[type="file"]');
-  var file = fileInput && fileInput.files && fileInput.files[0];
-  if (file) {
-    var reader = new FileReader();
-    reader.onload = function(e) {
-      data.fileData = e.target.result.split(',')[1];
-      data.fileName = file.name;
-      data.fileMime = file.type || 'application/pdf';
-      doPost(data);
-    };
-    reader.onerror = function() {
-      showToast('❌ Could not read file.', 'err');
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  .then(function() {
+    btn.textContent = '✓ Submitted!';
+    btn.style.background = '#1b6e35';
+    showToast('✅ Project submitted successfully!', 'ok');
+    setTimeout(function() {
       btn.textContent = orig;
+      btn.style.background = '';
       btn.disabled = false;
-    };
-    reader.readAsDataURL(file);
-  } else {
-    doPost(data);
-  }
+    }, 3500);
+  })
+  .catch(function(err) {
+    btn.textContent = '⚠ Error — Retry';
+    btn.style.background = '#c0392b';
+    btn.disabled = false;
+    showToast('❌ Submission failed. Check console.', 'err');
+    console.error(err);
+  });
 }
 
 function resetForm(cardId) {
