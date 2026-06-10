@@ -4,1013 +4,641 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Research Project Portal — Santosh Deemed to be University</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-:root{
-  --red:#C0272D;
-  --red-dark:#9b1c21;
-  --red-light:#e8494f;
-  --navy:#1a1a2e;
-  --white:#ffffff;
-  --off:#f7f8fa;
-  --border:#e2e6ed;
-  --text:#1e2330;
-  --muted:#6b7280;
-  --gold:#B8972A;
-}
-body{font-family:'Source Sans 3',sans-serif;background:var(--off);color:var(--text);}
-
-/* ── TOP BAR ── */
-.topbar{background:var(--navy);color:rgba(255,255,255,0.65);font-size:11.5px;padding:7px 40px;display:flex;justify-content:space-between;align-items:center;letter-spacing:0.3px;}
-.topbar a{color:rgba(255,255,255,0.65);text-decoration:none;}
-.topbar a:hover{color:#fff;}
-.topbar-left{display:flex;gap:20px;align-items:center;}
-.topbar-right{display:flex;gap:16px;align-items:center;}
-.tb-divider{width:1px;height:12px;background:rgba(255,255,255,0.2);}
-
-/* ── HEADER ── */
-.hdr{background:#fff;border-bottom:3px solid var(--red);padding:0 40px;}
-.hdr-inner{display:flex;align-items:center;justify-content:space-between;padding:16px 0;}
-.hdr-brand{display:flex;align-items:center;gap:18px;}
-.logo-wrap{width:70px;height:70px;border-radius:50%;overflow:hidden;border:2.5px solid var(--red);flex-shrink:0;background:#fff;display:flex;align-items:center;justify-content:center;}
-.logo-wrap img{width:100%;height:100%;object-fit:cover;}
-.brand-text{}
-.brand-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--red);line-height:1.1;letter-spacing:-0.3px;}
-.brand-name span{color:var(--navy);}
-.brand-sub{font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:3px;font-weight:500;}
-.brand-tag{font-size:10px;background:var(--red);color:#fff;padding:2px 8px;border-radius:2px;letter-spacing:1px;text-transform:uppercase;display:inline-block;margin-top:5px;font-weight:600;}
-.hdr-right{text-align:right;}
-.hdr-portal-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:4px;}
-.hdr-portal-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--navy);font-weight:600;}
-.hdr-portal-sub{font-size:11px;color:var(--muted);margin-top:2px;}
-
-/* ── NAV ── */
-.nav{background:var(--red);display:flex;align-items:center;padding:0 40px;}
-.nbtn{background:none;border:none;color:rgba(255,255,255,0.78);font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:500;padding:14px 22px;cursor:pointer;position:relative;letter-spacing:0.4px;transition:color .15s;display:flex;align-items:center;gap:7px;}
-.nbtn svg{width:15px;height:15px;opacity:0.7;}
-.nbtn:hover,.nbtn.on{color:#fff;}
-.nbtn.on::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:#fff;}
-.nav-divider{width:1px;height:20px;background:rgba(255,255,255,0.2);margin:0 4px;}
-
-/* ── HERO STRIP ── */
-.hero{background:linear-gradient(135deg,var(--red-dark) 0%,var(--red) 60%,#e05a60 100%);padding:36px 40px;position:relative;overflow:hidden;}
-.hero::before{content:'';position:absolute;right:-60px;top:-60px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,0.04);}
-.hero::after{content:'';position:absolute;right:80px;bottom:-80px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.04);}
-.hero-inner{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:40px;}
-.hero-text h1{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.25;}
-.hero-text p{font-size:13.5px;color:rgba(255,255,255,0.8);max-width:560px;line-height:1.7;}
-.hero-stats{display:flex;gap:28px;flex-shrink:0;}
-.hstat{text-align:center;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:10px;padding:14px 22px;}
-.hstat-n{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:#fff;line-height:1;}
-.hstat-l{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-top:4px;}
-
-/* ── BODY ── */
-.body{padding:32px 40px;min-height:300px;}
-.hidden{display:none;}
-
-/* ── HOME ── */
-.section-title{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:10px;}
-.section-title::after{content:'';flex:1;height:1.5px;background:linear-gradient(to right,var(--border),transparent);}
-
-/* Portal cards */
-.portal-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:32px;}
-.portal-card{background:#fff;border:1.5px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:transform .15s,box-shadow .15s,border-color .15s;}
-.portal-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(192,39,45,0.12);border-color:var(--red);}
-.pc-top{background:var(--red);padding:20px 24px;display:flex;align-items:center;gap:14px;}
-.pc-top.int{background:var(--navy);}
-.pc-icon{width:48px;height:48px;border-radius:10px;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.pc-icon svg{width:24px;height:24px;stroke:#fff;}
-.pc-title{font-family:'Playfair Display',serif;font-size:18px;color:#fff;font-weight:600;}
-.pc-badge{margin-left:auto;font-size:9px;letter-spacing:1.5px;background:rgba(255,255,255,0.2);color:#fff;padding:3px 9px;border-radius:2px;font-weight:700;border:1px solid rgba(255,255,255,0.3);}
-.pc-body{padding:20px 24px;}
-.pc-body p{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px;}
-.pc-footer{display:flex;align-items:center;justify-content:space-between;}
-.pc-pills{display:flex;gap:6px;}
-.pc-pill{font-size:10px;background:var(--off);color:var(--muted);padding:3px 8px;border-radius:3px;border:1px solid var(--border);font-weight:500;}
-.pc-arr{font-size:12px;font-weight:700;color:var(--red);display:flex;align-items:center;gap:4px;}
-.pc-arr svg{width:14px;height:14px;stroke:var(--red);}
-
-/* Contact cards */
-.contact-wrap{margin-top:8px;}
-.hq-card{background:var(--navy);border-radius:14px;padding:24px 28px;margin-bottom:20px;position:relative;overflow:hidden;}
-.hq-card::before{content:'';position:absolute;right:-30px;top:-30px;width:180px;height:180px;border-radius:50%;background:rgba(192,39,45,0.12);}
-.hq-card::after{content:'';position:absolute;right:60px;bottom:-40px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,0.03);}
-.hq-inner{position:relative;z-index:1;}
-.hq-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--red-light);font-weight:700;margin-bottom:10px;}
-.hq-name{font-family:'Playfair Display',serif;font-size:20px;color:#fff;font-weight:600;margin-bottom:4px;}
-.hq-name span{color:rgba(255,255,255,0.5);}
-.hq-addr{font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:18px;line-height:1.6;}
-.hq-contacts{display:flex;flex-wrap:wrap;gap:12px;}
-.hq-contact-item{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px 14px;}
-.hq-ci-icon{width:28px;height:28px;border-radius:6px;background:rgba(192,39,45,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.hq-ci-icon svg{width:13px;height:13px;stroke:var(--red-light);}
-.hq-ci-text{font-size:12px;color:rgba(255,255,255,0.8);}
-.hq-ci-text a{color:#fff;text-decoration:none;font-weight:500;}
-.hq-ci-text a:hover{color:var(--red-light);}
-
-.dept-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.dept-card{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:18px 20px;transition:border-color .15s,box-shadow .15s;}
-.dept-card:hover{border-color:var(--red);box-shadow:0 4px 16px rgba(192,39,45,0.08);}
-.dc-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
-.dc-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
-.dc-tag{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;padding:2px 8px;border-radius:2px;}
-.dc-tag.smc{background:#fde8e8;color:var(--red);}
-.dc-tag.sdc{background:#fff3e0;color:#b45309;}
-.dc-tag.ahs{background:#e8f5e9;color:#1b6e35;}
-.dc-tag.crf{background:#ede7f6;color:#5e35b1;}
-.dc-name{font-size:13px;font-weight:600;color:var(--navy);font-family:'Playfair Display',serif;}
-.dc-row{display:flex;align-items:flex-start;gap:9px;margin-bottom:7px;}
-.dc-row svg{width:13px;height:13px;stroke:var(--red);flex-shrink:0;margin-top:2px;}
-.dc-row span{font-size:11.5px;color:var(--muted);line-height:1.5;}
-.dc-row a{color:var(--navy);text-decoration:none;font-weight:500;}
-.dc-row a:hover{color:var(--red);}
-
-/* ── SUB TABS ── */
-.sub-tabs{display:flex;gap:8px;margin-bottom:20px;}
-.stab{border:1.5px solid var(--border);background:#fff;color:var(--muted);font-family:'Source Sans 3',sans-serif;font-size:12.5px;font-weight:500;padding:9px 18px;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:7px;transition:all .15s;}
-.stab svg{width:14px;height:14px;}
-.stab:hover{border-color:var(--red);color:var(--navy);}
-.stab.on{background:var(--red);color:#fff;border-color:var(--red);}
-
-/* ── FORM ── */
-.form-card{background:#fff;border:1.5px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,0.04);}
-.fhead{background:var(--navy);padding:18px 24px;display:flex;align-items:center;gap:10px;}
-.fhead.red-head{background:var(--red);}
-.fhead h3{color:rgba(255,255,255,0.9);font-size:14px;font-weight:400;letter-spacing:.3px;}
-.fbadge{background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.9);font-size:9px;padding:3px 9px;border-radius:2px;letter-spacing:1.5px;margin-left:auto;border:1px solid rgba(255,255,255,0.2);font-weight:700;}
-.fbody{padding:26px;}
-.sec{margin-bottom:26px;}
-.sec-lbl{font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:14px;padding-bottom:8px;border-bottom:1.5px solid var(--border);display:flex;align-items:center;gap:8px;}
-.sec-lbl::before{content:'';width:4px;height:14px;background:var(--red);border-radius:2px;}
-.r2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.r3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
-.f{display:flex;flex-direction:column;gap:5px;margin-bottom:12px;}
-.f label{font-size:11.5px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
-.f label span.req{color:var(--red);}
-.f input,.f select,.f textarea{border:1.5px solid var(--border);border-radius:8px;padding:10px 12px;font-size:13px;font-family:'Source Sans 3',sans-serif;color:var(--text);background:#fff;outline:none;transition:border-color .15s,box-shadow .15s;width:100%;}
-.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(192,39,45,0.08);}
-.f input:hover,.f select:hover{border-color:#a0aec0;}
-.f textarea{min-height:80px;resize:vertical;}
-
-/* SDG */
-.sdg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:6px;margin-top:8px;}
-.sdg-tile{border-radius:7px;padding:8px 4px;cursor:pointer;text-align:center;color:white;font-family:'Source Sans 3',sans-serif;line-height:1.25;user-select:none;transition:transform .12s,opacity .12s;position:relative;min-height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;opacity:0.88;}
-.sdg-tile:hover{transform:scale(1.07);opacity:1;}
-.sdg-tile.sel{outline:3px solid #fff;box-shadow:0 0 0 5px rgba(0,0,0,0.3);transform:scale(1.05);opacity:1;}
-.sdg-tile .sdg-num{font-size:16px;font-weight:700;line-height:1;}
-.sdg-tile .sdg-name{font-size:9px;font-weight:500;line-height:1.2;}
-
-/* Form footer */
-.ffoot{padding:16px 24px;border-top:1.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:#fafbfc;}
-.btn-s{background:var(--red);color:white;border:none;padding:11px 26px;border-radius:8px;font-family:'Source Sans 3',sans-serif;font-size:13px;cursor:pointer;font-weight:600;transition:background .15s;letter-spacing:0.3px;}
-.btn-s:hover{background:var(--red-dark);}
-.btn-s:disabled{opacity:0.65;cursor:not-allowed;}
-.btn-r{background:#fff;border:1.5px solid var(--border);color:var(--muted);padding:11px 16px;border-radius:8px;font-family:'Source Sans 3',sans-serif;font-size:13px;cursor:pointer;font-weight:500;}
-.btn-r:hover{border-color:#a0aec0;color:var(--text);}
-.msg{font-size:12px;color:var(--muted);}
-
-/* Toast */
-.toast{position:fixed;bottom:28px;right:28px;padding:13px 22px;border-radius:8px;font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;color:white;z-index:9999;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;transform:translateY(10px);}
-.toast.show{opacity:1;transform:translateY(0);}
-.toast.ok{background:#1b6e35;}
-.toast.err{background:var(--red);}
-
-/* Footer */
-.ftr{background:var(--navy);padding:0;}
-.ftr-main{padding:36px 40px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;border-bottom:1px solid rgba(255,255,255,0.08);}
-.ftr-brand .fb-name{font-family:'Playfair Display',serif;font-size:18px;color:#fff;font-weight:600;margin-bottom:6px;}
-.ftr-brand .fb-name span{color:rgba(255,255,255,0.4);}
-.ftr-brand p{font-size:12px;color:rgba(255,255,255,0.45);line-height:1.7;margin-top:8px;max-width:240px;}
-.ftr-col h4{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--red-light);font-weight:700;margin-bottom:12px;}
-.ftr-col a{display:block;font-size:12px;color:rgba(255,255,255,0.5);text-decoration:none;margin-bottom:7px;transition:color .15s;}
-.ftr-col a:hover{color:#fff;}
-.ftr-col .ftr-contact{font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:7px;display:flex;align-items:flex-start;gap:8px;}
-.ftr-contact svg{width:12px;height:12px;stroke:var(--red-light);flex-shrink:0;margin-top:2px;}
-.ftr-contact a{color:rgba(255,255,255,0.7);text-decoration:none;}
-.ftr-contact a:hover{color:#fff;}
-.ftr-bottom{padding:14px 40px;display:flex;align-items:center;justify-content:space-between;}
-.ftr-bottom p{font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:0.3px;}
-.ftr-bottom-links{display:flex;gap:16px;}
-.ftr-bottom-links a{font-size:11px;color:rgba(255,255,255,0.3);text-decoration:none;}
-.ftr-bottom-links a:hover{color:rgba(255,255,255,0.6);}
-
-/* ── DASHBOARD ── */
-.dash-section{margin-bottom:32px;}
-.dash-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:16px;}
-.dash-row2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px;}
-.dcard{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:20px 22px;position:relative;overflow:hidden;transition:box-shadow .15s,border-color .15s;}
-.dcard:hover{box-shadow:0 6px 22px rgba(192,39,45,0.10);border-color:var(--red);}
-.dcard-accent{position:absolute;top:0;left:0;width:4px;height:100%;border-radius:14px 0 0 14px;}
-.dcard-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
-.dcard-icon svg{width:20px;height:20px;}
-.dcard-val{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;line-height:1;margin-bottom:4px;}
-.dcard-lbl{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-weight:600;margin-bottom:10px;}
-.dcard-sub{font-size:11px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;}
-.dcard-sub span{display:flex;align-items:center;gap:4px;}
-.dcard-sub b{font-weight:700;}
-.dcard-badge{display:inline-block;font-size:9px;letter-spacing:1px;font-weight:700;padding:2px 7px;border-radius:3px;text-transform:uppercase;margin-bottom:12px;}
-/* split bar */
-.split-bar{margin-top:12px;height:6px;border-radius:3px;background:var(--border);overflow:hidden;}
-.split-bar-fill{height:100%;border-radius:3px;transition:width .4s;}
-/* big summary cards */
-.dsum{background:#fff;border:1.5px solid var(--border);border-radius:14px;overflow:hidden;}
-.dsum-head{padding:16px 22px;display:flex;align-items:center;gap:12px;}
-.dsum-head-icon{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.dsum-head-icon svg{width:18px;height:18px;}
-.dsum-head-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:#fff;}
-.dsum-head-sub{font-size:10px;color:rgba(255,255,255,0.7);letter-spacing:0.5px;margin-top:1px;}
-.dsum-head-total{margin-left:auto;font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:#fff;line-height:1;}
-.dsum-body{padding:18px 22px;}
-.dsum-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);}
-.dsum-row:last-child{border-bottom:none;}
-.dsum-row-left{display:flex;align-items:center;gap:10px;}
-.dsum-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
-.dsum-row-lbl{font-size:12.5px;color:var(--text);font-weight:500;}
-.dsum-row-val{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--navy);}
-.dsum-row-pct{font-size:10px;color:var(--muted);margin-top:1px;text-align:right;}
-.dsum-prog{margin-top:6px;height:4px;background:var(--border);border-radius:2px;overflow:hidden;}
-.dsum-prog-fill{height:100%;border-radius:2px;}
-
-/* ── ENTRIES TABLE ── */
-.dash-entries-wrap{background:#fff;border:1.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:32px;}
-.dash-entries-head{padding:14px 20px;border-bottom:1.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:#fafbfc;}
-.dash-entries-title{font-size:13px;font-weight:700;color:var(--navy);letter-spacing:0.2px;}
-.dash-filter-sel{border:1.5px solid var(--border);border-radius:7px;padding:6px 10px;font-size:12px;font-family:'Source Sans 3',sans-serif;color:var(--text);background:#fff;outline:none;cursor:pointer;}
-.dash-filter-sel:focus{border-color:var(--red);}
-.dash-refresh-btn{background:#fff;border:1.5px solid var(--border);color:var(--muted);padding:6px 12px;border-radius:7px;font-family:'Source Sans 3',sans-serif;font-size:12px;cursor:pointer;font-weight:600;transition:all .15s;}
-.dash-refresh-btn:hover{border-color:var(--red);color:var(--red);}
-.dash-entries-empty{padding:40px;text-align:center;color:var(--muted);font-size:13px;}
-.entries-table{width:100%;border-collapse:collapse;font-size:12px;}
-.entries-table th{padding:10px 14px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);border-bottom:1.5px solid var(--border);background:#fafbfc;white-space:nowrap;}
-.entries-table td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:middle;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.entries-table tr:last-child td{border-bottom:none;}
-.entries-table tr:hover td{background:#fdf5f5;}
-.et-badge{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:0.8px;text-transform:uppercase;}
-.et-ext-fac{background:#fde8e8;color:var(--red);}
-.et-ext-stu{background:#eff6ff;color:#2563eb;}
-.et-int-fac{background:#ecfdf5;color:#059669;}
-.et-int-stu{background:#f5f3ff;color:#7c3aed;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Georgia,'Times New Roman',serif;background:#f5f0e8;color:#1a1a2e;min-height:100vh}
+.hdr{background:#1a2744;border-bottom:3px solid #c8102e}
+.hdr-inner{max-width:1140px;margin:0 auto;padding:0 1.5rem}
+.hdr-top{display:flex;align-items:center;gap:1rem;padding:.9rem 0}
+.hdr-badge{background:#c8102e;width:46px;height:46px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;border-radius:4px;flex-shrink:0;font-weight:700;color:#fff;letter-spacing:-1px}
+.hdr-title{color:#fff;font-size:1.35rem;font-weight:700;line-height:1.2}
+.hdr-sub{color:rgba(255,255,255,.5);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;margin-top:3px}
+.conn-wrap{margin-left:auto;display:flex;align-items:center;gap:.5rem}
+.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%}
+.dot-amber{background:#d97706}.dot-green{background:#16a34a}.dot-red{background:#c8102e}
+.nav{display:flex;border-top:1px solid rgba(255,255,255,.1)}
+.nav-btn{padding:.55rem 1.2rem;background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;font-size:.75rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.6);transition:all .15s;font-family:Georgia,serif}
+.nav-btn.on{border-bottom-color:#c8102e;color:#fff}
+.nav-btn:hover{color:#fff}
+.main{max-width:1140px;margin:0 auto;padding:2rem 1.5rem}
+.card{background:#fffdf8;border:1px solid #d4c9b0;border-radius:6px;padding:1.4rem;margin-bottom:1.2rem}
+.card-accent{border-left:4px solid #c8102e}
+.section-hd{font-size:.68rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#c8102e;border-bottom:2px solid #c8102e;padding-bottom:.3rem;margin-bottom:1.2rem}
+.fld{margin-bottom:.9rem}
+.lbl{font-size:.68rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#5a5a7a;display:block;margin-bottom:.3rem}
+.req::after{content:" *";color:#c8102e}
+input,select,textarea{width:100%;padding:.5rem .75rem;border:1.5px solid #d4c9b0;border-radius:4px;font-family:Georgia,serif;font-size:.88rem;background:#fffdf8;color:#1a1a2e;transition:border-color .2s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#c8102e}
+textarea{min-height:70px;resize:vertical}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.9rem}
+.btn-red{background:#c8102e;color:#fff;border:none;padding:.65rem 1.8rem;font-family:Georgia,serif;font-weight:700;font-size:.9rem;cursor:pointer;border-radius:4px;transition:background .15s}
+.btn-red:hover{background:#a50d25}
+.btn-red:disabled{background:#aaa;cursor:not-allowed}
+.btn-dk{background:#1a2744;color:#fff;border:none;padding:.65rem 1.4rem;font-family:Georgia,serif;font-size:.88rem;cursor:pointer;border-radius:4px;transition:background .15s}
+.btn-dk:hover{background:#253563}
+.btn-out{background:transparent;color:#1a2744;border:1.5px solid #1a2744;padding:.6rem 1.3rem;font-family:Georgia,serif;font-size:.85rem;cursor:pointer;border-radius:4px}
+.btn-out:hover{background:#1a2744;color:#fff}
+.btn-sm{padding:.4rem .9rem;font-size:.78rem}
+.sdg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(54px,1fr));gap:6px;margin-top:.5rem}
+.sdg-item{cursor:pointer;border-radius:4px;overflow:hidden;border:2px solid transparent;transition:all .15s}
+.sdg-item:hover{transform:scale(1.06)}
+.sdg-item.on{border-color:#1a2744;box-shadow:0 0 0 2px #1a2744}
+.sdg-box{width:100%;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px;font-size:.5rem;font-weight:700;color:#fff;line-height:1.15;text-align:center}
+.sdg-num{font-size:.85rem;font-weight:900;display:block}
+.type-tabs{display:flex;gap:.5rem;margin-bottom:1.4rem}
+.type-tab{background:#fffdf8;border:1.5px solid #d4c9b0;color:#5a5a7a;padding:.5rem 1.2rem;font-family:Georgia,serif;font-size:.82rem;font-weight:700;cursor:pointer;border-radius:4px;transition:all .15s}
+.type-tab.on{background:#1a2744;color:#fff;border-color:#1a2744}
+.type-tab:hover:not(.on){border-color:#c8102e;color:#c8102e}
+.portal-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem}
+.pcard{background:#fffdf8;border:1px solid #d4c9b0;border-radius:6px;overflow:hidden;cursor:pointer;transition:box-shadow .15s,border-color .15s}
+.pcard:hover{box-shadow:0 4px 18px rgba(200,16,46,.12);border-color:#c8102e}
+.pcard-top{background:#c8102e;padding:1rem 1.2rem;display:flex;align-items:center;gap:.8rem}
+.pcard-top.navy{background:#1a2744}
+.pcard-icon{font-size:1.4rem}
+.pcard-title{color:#fff;font-size:1.05rem;font-weight:700}
+.pcard-badge{margin-left:auto;font-size:.65rem;letter-spacing:.12em;background:rgba(255,255,255,.18);color:#fff;padding:.2rem .6rem;border-radius:3px;font-weight:700;border:1px solid rgba(255,255,255,.28)}
+.pcard-body{padding:1rem 1.2rem}
+.pcard-body p{font-size:.85rem;color:#5a5a7a;line-height:1.65;margin-bottom:.8rem}
+.pcard-foot{display:flex;justify-content:flex-end}
+.pcard-arr{font-size:.82rem;font-weight:700;color:#c8102e}
+.tbl-wrap{background:#fffdf8;border:1px solid #d4c9b0;border-radius:6px;overflow:hidden;margin-bottom:2rem}
+.tbl-head{padding:.8rem 1.1rem;border-bottom:1px solid #d4c9b0;display:flex;align-items:center;justify-content:space-between;background:#f5f0e8}
+.tbl-title{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#1a2744}
+.tbl-filter{border:1.5px solid #d4c9b0;border-radius:4px;padding:.35rem .6rem;font-size:.78rem;font-family:Georgia,serif;color:#1a1a2e;background:#fffdf8;outline:none;cursor:pointer}
+.tbl-filter:focus{border-color:#c8102e}
+table{width:100%;border-collapse:collapse;font-size:.8rem}
+thead th{padding:.6rem .9rem;text-align:left;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#5a5a7a;border-bottom:1.5px solid #d4c9b0;background:#f5f0e8;white-space:nowrap}
+tbody td{padding:.65rem .9rem;border-bottom:1px solid #e8e0d0;color:#1a1a2e;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:#fdf6ee}
+.et{display:inline-block;padding:.15rem .5rem;border-radius:3px;font-size:.65rem;font-weight:700;font-family:'Courier New',monospace}
+.et-ext-fac{background:#fee2e2;color:#991b1b}
+.et-ext-stu{background:#fef3c7;color:#92400e}
+.et-int-fac{background:#d1fae5;color:#065f46}
+.et-int-stu{background:#dbeafe;color:#1e40af}
+.contact-card{background:#1a2744;border-radius:6px;padding:1.4rem;margin-bottom:1rem}
+.contact-label{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:#e8494f;font-weight:700;margin-bottom:.5rem}
+.contact-name{color:#fff;font-size:1.1rem;font-weight:700;margin-bottom:.2rem}
+.contact-addr{font-size:.8rem;color:rgba(255,255,255,.5);line-height:1.6;margin-bottom:1rem}
+.contact-items{display:flex;flex-wrap:wrap;gap:.7rem}
+.ci{display:flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:.5rem .8rem;font-size:.8rem;color:rgba(255,255,255,.8)}
+.ci a{color:#fff;text-decoration:none}
+.ci a:hover{color:#e8494f}
+.dept-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.dept-card{background:#fffdf8;border:1px solid #d4c9b0;border-radius:6px;padding:1rem}
+.dept-tag{font-size:.62rem;letter-spacing:.1em;font-weight:700;padding:.15rem .5rem;border-radius:3px;text-transform:uppercase}
+.tag-smc{background:#fee2e2;color:#991b1b}.tag-sdc{background:#fef3c7;color:#92400e}
+.tag-ahs{background:#d1fae5;color:#065f46}.tag-crf{background:#ede9fe;color:#5b21b6}
+.dept-name{font-size:.9rem;font-weight:700;color:#1a2744;margin:.5rem 0 .7rem}
+.dept-row{font-size:.78rem;color:#5a5a7a;margin-bottom:.35rem}
+.dept-row a{color:#1a2744;text-decoration:none;font-weight:600}
+.dept-row a:hover{color:#c8102e}
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;color:#fff;padding:.8rem 1.4rem;border-radius:6px;font-size:.88rem;font-weight:600;z-index:999;display:none;max-width:320px}
+.toast.ok{background:#16a34a}.toast.err{background:#c8102e}.toast.info{background:#1a2744}
+.ftr{background:#1a2744;padding:2rem 0 0}
+.ftr-inner{max-width:1140px;margin:0 auto;padding:0 1.5rem 1.5rem;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.ftr-col h4{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:#e8494f;font-weight:700;margin-bottom:.8rem}
+.ftr-col a{display:block;font-size:.78rem;color:rgba(255,255,255,.45);text-decoration:none;margin-bottom:.4rem}
+.ftr-col a:hover{color:#fff}
+.ftr-col p{font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.7;margin-top:.5rem;max-width:240px}
+.ftr-name{color:#fff;font-size:1rem;font-weight:700}
+.ftr-bottom{max-width:1140px;margin:0 auto;padding:.8rem 1.5rem;display:flex;justify-content:space-between;font-size:.7rem;color:rgba(255,255,255,.3)}
+.ftr-bottom a{color:rgba(255,255,255,.3);text-decoration:none}
+.ftr-bottom a:hover{color:rgba(255,255,255,.6)}
+.sec-sep{border-top:2px dashed #d4c9b0;margin-top:1rem;padding-top:1rem}
+.dash-row{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin-bottom:1.5rem}
+.dcard{background:#fffdf8;border:1px solid #d4c9b0;border-radius:6px;padding:1rem 1.1rem;border-left:4px solid #d4c9b0}
+.dcard.red{border-left-color:#c8102e}.dcard.navy{border-left-color:#1a2744}
+.dcard.green{border-left-color:#16a34a}.dcard.amber{border-left-color:#d97706}
+.dcard-val{font-size:2rem;font-weight:700;line-height:1;margin-bottom:.2rem}
+.dcard.red .dcard-val{color:#c8102e}.dcard.navy .dcard-val{color:#1a2744}
+.dcard.green .dcard-val{color:#16a34a}.dcard.amber .dcard-val{color:#d97706}
+.dcard-lbl{font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:#5a5a7a;font-weight:700;margin-bottom:.5rem}
+.dcard-sub{font-size:.72rem;color:#5a5a7a}
+.dcard-sub b{font-weight:700;color:#1a2744}
+.split-bar{margin-top:.6rem;height:5px;border-radius:3px;background:#e8e0d0;overflow:hidden}
+.split-bar-fill{height:100%;border-radius:3px;transition:width .4s}
+.empty{text-align:center;padding:2.5rem 1rem;color:#5a5a7a;font-size:.88rem;font-style:italic}
 </style>
 </head>
 <body>
+<div id="toast" class="toast"></div>
 
-<!-- TOP BAR -->
-<div class="topbar">
-  <div class="topbar-left">
-    <span>📍 No.1 Santosh Nagar, Ghaziabad, UP 201009</span>
-    <div class="tb-divider"></div>
-    <span>📞 0120-4933350 / 4933360 / 4933370</span>
-  </div>
-  <div class="topbar-right">
-    <a href="mailto:enquiry@santosh.ac.in">✉ enquiry@santosh.ac.in</a>
-    <div class="tb-divider"></div>
-    <a href="https://www.santosh.ac.in" target="_blank">🌐 santosh.ac.in</a>
-  </div>
-</div>
-
-<!-- HEADER -->
 <div class="hdr">
   <div class="hdr-inner">
-    <div class="hdr-brand">
-      <div class="logo-wrap">
-        <img src="https://lh3.googleusercontent.com/d/1VKKF0n-58lSM1LSM8F_Zhj8GH01jSPPc"
-             alt="Santosh University Logo"
-             onerror="this.outerHTML='<svg viewBox=\'0 0 70 70\' width=\'70\' height=\'70\' xmlns=\'http://www.w3.org/2000/svg\'><circle cx=\'35\' cy=\'35\' r=\'35\' fill=\'#C0272D\'/><text x=\'35\' y=\'44\' text-anchor=\'middle\' font-size=\'28\' font-family=\'serif\' fill=\'white\' font-weight=\'bold\'>S</text></svg>'">
+    <div class="hdr-top">
+      <div class="hdr-badge">SU</div>
+      <div>
+        <div class="hdr-title">Santosh Deemed to be University</div>
+        <div class="hdr-sub">Research Project Management Portal &middot; Intramural &amp; Extramural</div>
       </div>
-      <div class="brand-text">
-        <div class="brand-name">SANTOSH <span>Deemed to be University</span></div>
-        <div class="brand-sub">Established 1994 · Ghaziabad, NCR</div>
-        <div class="brand-tag">Research Cell Portal</div>
+      <div class="conn-wrap">
+        <span class="status-dot dot-amber" id="conn-dot"></span>
+        <span id="conn-text" style="color:rgba(255,255,255,.55);font-size:.72rem">Connecting...</span>
       </div>
     </div>
-    <div class="hdr-right">
-      <div class="hdr-portal-label">Intramural &amp; Extramural</div>
-      <div class="hdr-portal-title">Research Project Management</div>
-      <div class="hdr-portal-sub">Submit · Track · Manage · Analyse</div>
+    <div class="nav">
+      <button class="nav-btn on" onclick="goNav('home',this)">&#127968; Home</button>
+      <button class="nav-btn" onclick="goNav('dash',this)">&#128202; Dashboard</button>
+      <button class="nav-btn" onclick="goNav('ext',this)">&#127760; Extramural</button>
+      <button class="nav-btn" onclick="goNav('int',this)">&#127963; Intramural</button>
     </div>
   </div>
 </div>
 
-<!-- NAV -->
-<nav class="nav">
-  <button class="nbtn on" onclick="goHome(this)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    Home
-  </button>
-  <div class="nav-divider"></div>
-  <button class="nbtn" onclick="goSection('ext',this)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-    Extramural Research
-  </button>
-  <div class="nav-divider"></div>
-  <button class="nbtn" onclick="goSection('int',this)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    Intramural Research
-  </button>
-</nav>
+<div class="main">
 
-<!-- HERO STRIP -->
-<div class="hero">
-  <div class="hero-inner">
-    <div class="hero-text">
-      <h1>Research Project Management Portal</h1>
-      <p>A unified platform for Faculty and Student research submissions — Intramural &amp; Extramural. Track IEC approvals, ORCID integration, SDG alignment, funding details, and project analytics from a single dashboard.</p>
+<div id="view-home">
+  <div style="margin-bottom:1.8rem">
+    <h1 style="font-size:2.1rem;font-weight:700;line-height:1.2;margin-bottom:.5rem">Research Project<br><span style="color:#c8102e">Submission Portal</span></h1>
+    <p style="font-size:.95rem;color:#5a5a7a;max-width:560px;line-height:1.7;margin-bottom:1.2rem">Submit and track research projects across all departments. Select <strong>Extramural</strong> for externally funded projects or <strong>Intramural</strong> for university-funded internal research.</p>
+    <div style="display:flex;gap:.7rem;flex-wrap:wrap">
+      <button class="btn-red" onclick="goNav('ext',document.querySelectorAll('.nav-btn')[2])">Submit Extramural Project</button>
+      <button class="btn-dk" onclick="goNav('int',document.querySelectorAll('.nav-btn')[3])">Submit Intramural Project</button>
+      <button class="btn-out" onclick="goNav('dash',document.querySelectorAll('.nav-btn')[1])">View Dashboard</button>
     </div>
-    <div class="hero-stats">
-      <div class="hstat">
-        <div class="hstat-n">4</div>
-        <div class="hstat-l">Colleges</div>
+  </div>
+  <div class="section-hd">Submit a Research Project</div>
+  <div class="portal-grid">
+    <div class="pcard" onclick="goNav('ext',document.querySelectorAll('.nav-btn')[2])">
+      <div class="pcard-top"><div class="pcard-icon">&#127760;</div><div class="pcard-title">Extramural Research</div><div class="pcard-badge">EXT</div></div>
+      <div class="pcard-body"><p>Externally funded projects with funding agency details, grants, and collaboration tracking. For Faculty &amp; Student researchers.</p><div class="pcard-foot"><span class="pcard-arr">Open &#8594;</span></div></div>
+    </div>
+    <div class="pcard" onclick="goNav('int',document.querySelectorAll('.nav-btn')[3])">
+      <div class="pcard-top navy"><div class="pcard-icon">&#127963;</div><div class="pcard-title">Intramural Research</div><div class="pcard-badge">INT</div></div>
+      <div class="pcard-body"><p>University-funded internal research initiatives with institutional support and seed money allocation. For Faculty &amp; Student researchers.</p><div class="pcard-foot"><span class="pcard-arr">Open &#8594;</span></div></div>
+    </div>
+  </div>
+
+</div>
+
+<div id="view-dash" style="display:none">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem">
+    <div>
+      <h2 style="font-size:1.6rem;font-weight:700;margin-bottom:.2rem">Dashboard</h2>
+      <p style="color:#5a5a7a;font-size:.85rem">Live submission statistics across all project types.</p>
+    </div>
+    <button class="btn-dk btn-sm" onclick="loadDashboard()">&#8635; Refresh</button>
+  </div>
+
+  <!-- Stat cards -->
+  <div class="dash-row">
+    <div class="dcard red"><div class="dcard-lbl">Faculty Total</div><div class="dcard-val" id="dash-fac-total">0</div><div class="dcard-sub"><b id="dash-fac-ext">0</b> Ext &nbsp;&middot;&nbsp; <b id="dash-fac-int">0</b> Int</div><div class="split-bar"><div class="split-bar-fill" id="dash-fac-bar" style="background:#c8102e;width:0%"></div></div></div>
+    <div class="dcard navy"><div class="dcard-lbl">Student Total</div><div class="dcard-val" id="dash-stu-total">0</div><div class="dcard-sub"><b id="dash-stu-ext">0</b> Ext &nbsp;&middot;&nbsp; <b id="dash-stu-int">0</b> Int</div><div class="split-bar"><div class="split-bar-fill" id="dash-stu-bar" style="background:#1a2744;width:0%"></div></div></div>
+    <div class="dcard green"><div class="dcard-lbl">Extramural</div><div class="dcard-val" id="dash-ext-total">0</div><div class="dcard-sub"><b id="dash-ext-fac">0</b> Fac &nbsp;&middot;&nbsp; <b id="dash-ext-stu">0</b> Stu</div><div class="split-bar"><div class="split-bar-fill" id="dash-ext-bar" style="background:#16a34a;width:0%"></div></div></div>
+    <div class="dcard amber"><div class="dcard-lbl">Intramural</div><div class="dcard-val" id="dash-int-total">0</div><div class="dcard-sub"><b id="dash-int-fac">0</b> Fac &nbsp;&middot;&nbsp; <b id="dash-int-stu">0</b> Stu</div><div class="split-bar"><div class="split-bar-fill" id="dash-int-bar" style="background:#d97706;width:0%"></div></div></div>
+  </div>
+
+  <!-- Charts row -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
+    <!-- Pie chart -->
+    <div class="card" style="padding:1.2rem">
+      <div class="section-hd">Submissions by Category</div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap">
+        <canvas id="pie-chart" width="200" height="200"></canvas>
+        <div id="pie-legend" style="display:flex;flex-direction:column;gap:.5rem;font-size:.78rem"></div>
       </div>
-      <div class="hstat">
-        <div class="hstat-n">17</div>
-        <div class="hstat-l">SDG Goals</div>
+    </div>
+    <!-- Bar / Histogram -->
+    <div class="card" style="padding:1.2rem">
+      <div class="section-hd">Faculty vs Student Breakdown</div>
+      <canvas id="bar-chart" width="400" height="220"></canvas>
+    </div>
+  </div>
+
+  <!-- Second charts row -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+    <!-- Donut: Ext vs Int -->
+    <div class="card" style="padding:1.2rem">
+      <div class="section-hd">Extramural vs Intramural</div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap">
+        <canvas id="donut-chart" width="200" height="200"></canvas>
+        <div id="donut-legend" style="display:flex;flex-direction:column;gap:.5rem;font-size:.78rem"></div>
       </div>
-      <div class="hstat">
-        <div class="hstat-n">30+</div>
-        <div class="hstat-l">Years of Excellence</div>
-      </div>
+    </div>
+    <!-- Grouped bar: college breakdown placeholder -->
+    <div class="card" style="padding:1.2rem">
+      <div class="section-hd">Submission Trend (by Type)</div>
+      <canvas id="trend-chart" width="400" height="220"></canvas>
     </div>
   </div>
 </div>
 
-<!-- BODY -->
-<div class="body">
-
-  <!-- HOME VIEW -->
-  <div id="home-view">
-
-    <!-- DASHBOARD -->
-    <div class="dash-section">
-      <div class="section-title">Research Projects Overview</div>
-
-      <!-- Top 4 KPI Cards -->
-      <div class="dash-row">
-        <div class="dcard">
-          <div class="dcard-accent" style="background:var(--red);"></div>
-          <div class="dcard-icon" style="background:#fde8e8;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-          </div>
-          <div class="dcard-val" style="color:var(--red);" id="dash-fac-total">0</div>
-          <div class="dcard-lbl">Faculty Projects</div>
-          <div class="dcard-sub">
-            <span><b id="dash-fac-ext">0</b>&nbsp;Extramural</span>
-            <span><b id="dash-fac-int">0</b>&nbsp;Intramural</span>
-          </div>
-          <div class="split-bar"><div class="split-bar-fill" id="dash-fac-bar" style="background:var(--red);width:0%;"></div></div>
-        </div>
-        <div class="dcard">
-          <div class="dcard-accent" style="background:var(--navy);"></div>
-          <div class="dcard-icon" style="background:#e8eaf6;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.8" stroke-linecap="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-          </div>
-          <div class="dcard-val" style="color:var(--navy);" id="dash-stu-total">0</div>
-          <div class="dcard-lbl">Student Projects</div>
-          <div class="dcard-sub">
-            <span><b id="dash-stu-ext">0</b>&nbsp;Extramural</span>
-            <span><b id="dash-stu-int">0</b>&nbsp;Intramural</span>
-          </div>
-          <div class="split-bar"><div class="split-bar-fill" id="dash-stu-bar" style="background:var(--navy);width:0%;"></div></div>
-        </div>
-        <div class="dcard">
-          <div class="dcard-accent" style="background:#2563eb;"></div>
-          <div class="dcard-icon" style="background:#eff6ff;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-          </div>
-          <div class="dcard-val" style="color:#2563eb;" id="dash-ext-total">0</div>
-          <div class="dcard-lbl">Extramural Total</div>
-          <div class="dcard-sub">
-            <span><b id="dash-ext-fac">0</b>&nbsp;Faculty</span>
-            <span><b id="dash-ext-stu">0</b>&nbsp;Student</span>
-          </div>
-          <div class="split-bar"><div class="split-bar-fill" id="dash-ext-bar" style="background:#2563eb;width:0%;"></div></div>
-        </div>
-        <div class="dcard">
-          <div class="dcard-accent" style="background:#059669;"></div>
-          <div class="dcard-icon" style="background:#ecfdf5;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="1.8" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          </div>
-          <div class="dcard-val" style="color:#059669;" id="dash-int-total">0</div>
-          <div class="dcard-lbl">Intramural Total</div>
-          <div class="dcard-sub">
-            <span><b id="dash-int-fac">0</b>&nbsp;Faculty</span>
-            <span><b id="dash-int-stu">0</b>&nbsp;Student</span>
-          </div>
-          <div class="split-bar"><div class="split-bar-fill" id="dash-int-bar" style="background:#059669;width:0%;"></div></div>
-        </div>
-      </div>
-
-      <!-- Recent Entries Table -->
-      <div class="dash-entries-wrap">
-        <div class="dash-entries-head">
-          <div style="display:flex;align-items:center;gap:10px;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
-            <span class="dash-entries-title">All Project Submissions</span>
-          </div>
-          <div style="display:flex;gap:8px;align-items:center;">
-            <select id="dash-filter-type" class="dash-filter-sel" onchange="renderEntriesTable()">
-              <option value="">All Types</option>
-              <option value="ext_fac">Extramural Faculty</option>
-              <option value="ext_stu">Extramural Student</option>
-              <option value="int_fac">Intramural Faculty</option>
-              <option value="int_stu">Intramural Student</option>
-            </select>
-            <button class="dash-refresh-btn" onclick="loadDashboard()">↻ Refresh</button>
-          </div>
-        </div>
-        <div id="dash-entries-body">
-          <div class="dash-entries-empty">Loading entries…</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Portal Entry Cards -->
-    <div class="section-title">Submit a Research Project</div>
-    <div class="portal-grid">
-      <div class="portal-card" onclick="goSection('ext',null)">
-        <div class="pc-top">
-          <div class="pc-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-          </div>
-          <div class="pc-title">Extramural Research</div>
-          <div class="pc-badge">EXT</div>
-        </div>
-        <div class="pc-body">
-          <p>Externally funded projects — Faculty &amp; Student submissions with funding agency details, grants, and external collaboration tracking.</p>
-          <div class="pc-footer">
-            <div class="pc-pills">
-              <span class="pc-pill">ICMR</span>
-              <span class="pc-pill">DBT</span>
-              <span class="pc-pill">DST</span>
-              <span class="pc-pill">Industry</span>
-            </div>
-            <div class="pc-arr">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-          </div>
-        </div>
-      </div>
-      <div class="portal-card" onclick="goSection('int',null)">
-        <div class="pc-top int">
-          <div class="pc-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          </div>
-          <div class="pc-title">Intramural Research</div>
-          <div class="pc-badge">INT</div>
-        </div>
-        <div class="pc-body">
-          <p>University-funded internal projects — Faculty &amp; Student research initiatives with institutional support and resource allocation.</p>
-          <div class="pc-footer">
-            <div class="pc-pills">
-              <span class="pc-pill">Faculty</span>
-              <span class="pc-pill">Student</span>
-              <span class="pc-pill">IEC</span>
-              <span class="pc-pill">SDG</span>
-            </div>
-            <div class="pc-arr">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Contact Section -->
-    <div class="section-title" style="margin-top:8px;">University Contacts</div>
-    <div class="contact-wrap">
-      <div class="hq-card">
-        <div class="hq-inner">
-          <div class="hq-label">Head Office — Santosh Deemed to be University</div>
-          <div class="hq-name">SANTOSH <span>Deemed to be University</span></div>
-          <div class="hq-addr">No.1, Santosh Nagar, Block H, Pratap Vihar, Ghaziabad, Uttar Pradesh – 201009</div>
-          <div class="hq-contacts">
-            <div class="hq-contact-item">
-              <div class="hq-ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.06 11.74a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 8 8l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 23 18z"/></svg></div>
-              <div class="hq-ci-text">0120-4933350 / 4933360 / 4933370</div>
-            </div>
-            <div class="hq-contact-item">
-              <div class="hq-ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-              <div class="hq-ci-text"><a href="mailto:enquiry@santosh.ac.in">enquiry@santosh.ac.in</a></div>
-            </div>
-            <div class="hq-contact-item">
-              <div class="hq-ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
-              <div class="hq-ci-text"><a href="https://www.santosh.ac.in" target="_blank">www.santosh.ac.in</a></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="dept-grid">
-        <!-- SMC -->
-        <div class="dept-card">
-          <div class="dc-header">
-            <div class="dc-dot" style="background:var(--red);"></div>
-            <span class="dc-tag smc">SMC</span>
-            <span class="dc-name">Santosh Medical College</span>
-          </div>
-          <div class="dc-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Dean Medical Office</span></div>
-          <div class="dc-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.06 11.74a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 8 8l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 23 18z"/></svg><span>0120-4933387 &nbsp;·&nbsp; +91-9818202567</span></div>
-          <div class="dc-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span><a href="mailto:dean.smc@santosh.ac.in">dean.smc@santosh.ac.in</a></span></div>
-        </div>
-        <!-- SDC -->
-        <div class="dept-card">
-          <div class="dc-header">
-            <div class="dc-dot" style="background:#b45309;"></div>
-            <span class="dc-tag sdc">SDC</span>
-            <span class="dc-name">Santosh Dental College</span>
-          </div>
-          <div class="dc-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Dean Dental College Hospital</span></div>
-          <div class="dc-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.06 11.74a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 8 8l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 23 18z"/></svg><span>0120-4933380/81 &nbsp;·&nbsp; +91-9999960255</span></div>
-          <div class="dc-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span><a href="mailto:dean.sdc@santosh.ac.in">dean.sdc@santosh.ac.in</a> &nbsp;·&nbsp; <a href="mailto:dental@santosh.ac.in">dental@santosh.ac.in</a></span></div>
-        </div>
-        <!-- AHS -->
-        <div class="dept-card">
-          <div class="dc-header">
-            <div class="dc-dot" style="background:#1b6e35;"></div>
-            <span class="dc-tag ahs">AHS</span>
-            <span class="dc-name">Allied Health Sciences</span>
-          </div>
-          <div class="dc-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Dean Paramedical / Allied Health Sciences</span></div>
-          <div class="dc-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.06 11.74a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 8 8l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 23 18z"/></svg><span>0120-4933350</span></div>
-          <div class="dc-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span><a href="mailto:dean.paramedical@santosh.ac.in">dean.paramedical@santosh.ac.in</a></span></div>
-          <div class="dc-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>Admissions: <a href="mailto:admissioncell@santosh.ac.in">admissioncell@santosh.ac.in</a></span></div>
-        </div>
-        <!-- CRF -->
-        <div class="dept-card">
-          <div class="dc-header">
-            <div class="dc-dot" style="background:#5e35b1;"></div>
-            <span class="dc-tag crf">CRF</span>
-            <span class="dc-name">CRF / DBMR &amp; Registrar</span>
-          </div>
-          <div class="dc-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Registrar's Office — Research &amp; Academic Verification</span></div>
-          <div class="dc-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.06 11.74a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 8 8l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 23 18z"/></svg><span>0120-4933378 / 77 &nbsp;·&nbsp; +91-7838888790</span></div>
-          <div class="dc-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span><a href="mailto:registrar@santosh.ac.in">registrar@santosh.ac.in</a></span></div>
-        </div>
-      </div>
-    </div>
-  </div><!-- /home-view -->
-
-  <!-- EXTRAMURAL -->
-  <div id="ext-view" class="hidden">
-    <div class="sub-tabs">
-      <button class="stab on" onclick="goSub('ext','fac',this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-        Faculty Projects
-      </button>
-      <button class="stab" onclick="goSub('ext','stu',this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-        Student Projects
-      </button>
-    </div>
-    <div id="ext-fac-wrap"></div>
-    <div id="ext-stu-wrap" class="hidden"></div>
+<div id="view-ext" style="display:none">
+  <h2 style="font-size:1.6rem;font-weight:700;margin-bottom:.3rem">Extramural Research</h2>
+  <p style="color:#5a5a7a;font-size:.85rem;margin-bottom:1.2rem">Externally funded projects. Select Faculty or Student submission below.</p>
+  <div class="type-tabs">
+    <button class="type-tab on" onclick="goSub('ext','fac',this)">&#128104;&#8205;&#127979; Faculty</button>
+    <button class="type-tab" onclick="goSub('ext','stu',this)">&#128105;&#8205;&#127979; Student</button>
   </div>
-
-  <!-- INTRAMURAL -->
-  <div id="int-view" class="hidden">
-    <div class="sub-tabs">
-      <button class="stab on" onclick="goSub('int','fac',this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-        Faculty Projects
-      </button>
-      <button class="stab" onclick="goSub('int','stu',this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-        Student Projects
-      </button>
-    </div>
-    <div id="int-fac-wrap"></div>
-    <div id="int-stu-wrap" class="hidden"></div>
-  </div>
-
-</div><!-- /body -->
-
-<!-- FOOTER -->
-<div class="ftr">
-  <div class="ftr-main">
-    <div class="ftr-brand">
-      <div class="fb-name">SANTOSH <span>Deemed to be University</span></div>
-      <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--red-light);font-weight:700;margin-bottom:4px;">Research Cell Portal</div>
-      <p>A centralised research management platform for Intramural and Extramural projects across all colleges of Santosh Deemed to be University.</p>
-    </div>
-    <div class="ftr-col">
-      <h4>Colleges</h4>
-      <a href="#">Santosh Medical College</a>
-      <a href="#">Santosh Dental College</a>
-      <a href="#">Allied Health Sciences</a>
-      <a href="#">CRF / DBMR</a>
-    </div>
-    <div class="ftr-col">
-      <h4>Quick Links</h4>
-      <a href="https://www.santosh.ac.in" target="_blank">University Website</a>
-      <a href="#">Research Policy</a>
-      <a href="#">IEC Guidelines</a>
-      <a href="#">ORCID Registration</a>
-    </div>
-    <div class="ftr-col">
-      <h4>Contact</h4>
-      <div class="ftr-contact"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.06 11.74a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 8 8l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 23 18z"/></svg>0120-4933350</div>
-      <div class="ftr-contact"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:enquiry@santosh.ac.in">enquiry@santosh.ac.in</a></div>
-      <div class="ftr-contact"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:registrar@santosh.ac.in">registrar@santosh.ac.in</a></div>
-    </div>
-  </div>
-  <div class="ftr-bottom">
-    <p>© 2026 Santosh Deemed to be University &nbsp;·&nbsp; Research Cell Portal &nbsp;·&nbsp; All Rights Reserved</p>
-    <div class="ftr-bottom-links">
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Use</a>
-      <a href="https://www.santosh.ac.in" target="_blank">University Website</a>
-    </div>
-  </div>
+  <div id="ext-fac-wrap"></div>
+  <div id="ext-stu-wrap" style="display:none"></div>
 </div>
 
-<!-- TOAST -->
-<div class="toast" id="toast"></div>
+<div id="view-int" style="display:none">
+  <h2 style="font-size:1.6rem;font-weight:700;margin-bottom:.3rem">Intramural Research</h2>
+  <p style="color:#5a5a7a;font-size:.85rem;margin-bottom:1.2rem">University-funded internal projects. Select Faculty or Student submission below.</p>
+  <div class="type-tabs">
+    <button class="type-tab on" onclick="goSub('int','fac',this)">&#128104;&#8205;&#127979; Faculty</button>
+    <button class="type-tab" onclick="goSub('int','stu',this)">&#128105;&#8205;&#127979; Student</button>
+  </div>
+  <div id="int-fac-wrap"></div>
+  <div id="int-stu-wrap" style="display:none"></div>
+</div>
+
+</div>
+
+
 
 <script>
 var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxHfTa7D8S468epRs4Ltg-Ho8oZPhq1OPEwq52lFnpWDIyd2KHtPI3aOOQQxeDmvBfJ/exec";
 var _allEntries = [];
-
 var SDG_DATA = [
-  {n:1,  label:"No Poverty",                              color:"#E5243B"},
-  {n:2,  label:"Zero Hunger",                             color:"#DDA63A"},
-  {n:3,  label:"Good Health & Well-being",                color:"#4C9F38"},
-  {n:4,  label:"Quality Education",                       color:"#C5192D"},
-  {n:5,  label:"Gender Equality",                         color:"#FF3A21"},
-  {n:6,  label:"Clean Water & Sanitation",                color:"#26BDE2"},
-  {n:7,  label:"Affordable & Clean Energy",               color:"#FCC30B"},
-  {n:8,  label:"Decent Work & Economic Growth",           color:"#A21942"},
-  {n:9,  label:"Industry, Innovation & Infrastructure",   color:"#FD6925"},
-  {n:10, label:"Reduced Inequalities",                    color:"#DD1367"},
-  {n:11, label:"Sustainable Cities & Communities",        color:"#FD9D24"},
-  {n:12, label:"Responsible Consumption",                 color:"#BF8B2E"},
-  {n:13, label:"Climate Action",                          color:"#3F7E44"},
-  {n:14, label:"Life Below Water",                        color:"#0A97D9"},
-  {n:15, label:"Life on Land",                            color:"#56C02B"},
-  {n:16, label:"Peace, Justice & Strong Institutions",    color:"#00689D"},
-  {n:17, label:"Partnerships for the Goals",              color:"#19486A"}
+  {n:1,label:"No Poverty",color:"#E5243B"},{n:2,label:"Zero Hunger",color:"#DDA63A"},
+  {n:3,label:"Good Health",color:"#4C9F38"},{n:4,label:"Quality Education",color:"#C5192D"},
+  {n:5,label:"Gender Equality",color:"#FF3A21"},{n:6,label:"Clean Water",color:"#26BDE2"},
+  {n:7,label:"Clean Energy",color:"#FCC30B"},{n:8,label:"Decent Work",color:"#A21942"},
+  {n:9,label:"Innovation",color:"#FD6925"},{n:10,label:"Reduced Inequalities",color:"#DD1367"},
+  {n:11,label:"Sustainable Cities",color:"#FD9D24"},{n:12,label:"Responsible Consumption",color:"#BF8B2E"},
+  {n:13,label:"Climate Action",color:"#3F7E44"},{n:14,label:"Life Below Water",color:"#0A97D9"},
+  {n:15,label:"Life on Land",color:"#56C02B"},{n:16,label:"Peace & Justice",color:"#00689D"},
+  {n:17,label:"Partnerships",color:"#19486A"}
 ];
 
-var SHORT = {
-  "No Poverty":"No\nPoverty","Zero Hunger":"Zero\nHunger",
-  "Good Health & Well-being":"Good Health\n& Well-being",
-  "Quality Education":"Quality\nEducation","Gender Equality":"Gender\nEquality",
-  "Clean Water & Sanitation":"Clean Water\n& Sanitation",
-  "Affordable & Clean Energy":"Affordable\n& Clean Energy",
-  "Decent Work & Economic Growth":"Decent Work\n& Economy",
-  "Industry, Innovation & Infrastructure":"Industry,\nInnovation...",
-  "Reduced Inequalities":"Reduced\nInequalities",
-  "Sustainable Cities & Communities":"Sustainable\nCities...",
-  "Responsible Consumption":"Responsible\nConsumption",
-  "Climate Action":"Climate\nAction","Life Below Water":"Life Below\nWater",
-  "Life on Land":"Life on\nLand",
-  "Peace, Justice & Strong Institutions":"Peace,\nJustice & Str...",
-  "Partnerships for the Goals":"Partnerships\nfor the..."
-};
-
-// ── Dashboard: load stats + entries ──────────────────────────
-function loadDashboard() {
-  document.getElementById('dash-entries-body').innerHTML = '<div class="dash-entries-empty">Loading entries…</div>';
-  fetch(SCRIPT_URL + '?action=stats')
-    .then(function(r){ return r.json(); })
-    .then(function(d) {
-      var ef = d.ext_fac||0, es = d.ext_stu||0, if2 = d.int_fac||0, is2 = d.int_stu||0;
-      var facT = ef + if2, stuT = es + is2, extT = ef + es, intT = if2 + is2, total = facT + stuT;
-      set('dash-fac-total', facT); set('dash-fac-ext', ef); set('dash-fac-int', if2);
-      set('dash-stu-total', stuT); set('dash-stu-ext', es); set('dash-stu-int', is2);
-      set('dash-ext-total', extT); set('dash-ext-fac', ef); set('dash-ext-stu', es);
-      set('dash-int-total', intT); set('dash-int-fac', if2); set('dash-int-stu', is2);
-      bar('dash-fac-bar', total ? facT/total*100 : 0);
-      bar('dash-stu-bar', total ? stuT/total*100 : 0);
-      bar('dash-ext-bar', total ? extT/total*100 : 0);
-      bar('dash-int-bar', total ? intT/total*100 : 0);
-      // hero stats
-      var hn = document.querySelectorAll('.hstat-n');
-      if (hn[0]) hn[0].textContent = total;
-    }).catch(function(){});
-
-  fetch(SCRIPT_URL + '?action=entries')
-    .then(function(r){ return r.json(); })
-    .then(function(d) {
-      _allEntries = d.entries || [];
-      renderEntriesTable();
-    }).catch(function(){
-      document.getElementById('dash-entries-body').innerHTML = '<div class="dash-entries-empty">Could not load entries. Check script deployment.</div>';
-    });
-}
-
-function set(id, v) { var el = document.getElementById(id); if(el) el.textContent = v; }
-function bar(id, pct) { var el = document.getElementById(id); if(el) el.style.width = pct + '%'; }
-
-function renderEntriesTable() {
-  var filter = document.getElementById('dash-filter-type').value;
-  var rows = _allEntries.filter(function(r){ return !filter || r.type === filter; });
-  var body = document.getElementById('dash-entries-body');
-  if (!rows.length) {
-    body.innerHTML = '<div class="dash-entries-empty">No entries found.</div>';
-    return;
+function goNav(sec,btn) {
+  document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('on');});
+  if(btn) btn.classList.add('on');
+  ['home','dash','ext','int'].forEach(function(s){ document.getElementById('view-'+s).style.display=(s===sec)?'':'none'; });
+  if(sec==='dash') loadDashboard();
+  if((sec==='ext'||sec==='int') && !document.getElementById(sec+'-fac-wrap').innerHTML) {
+    document.getElementById(sec+'-fac-wrap').innerHTML = facForm(sec);
+    document.getElementById(sec+'-stu-wrap').innerHTML = stuForm(sec);
   }
-  var badgeMap = { ext_fac:'et-ext-fac', ext_stu:'et-ext-stu', int_fac:'et-int-fac', int_stu:'et-int-stu' };
-  var labelMap = { ext_fac:'Ext Faculty', ext_stu:'Ext Student', int_fac:'Int Faculty', int_stu:'Int Student' };
-  var html = '<table class="entries-table"><thead><tr>' +
-    '<th>#</th><th>Date</th><th>Type</th><th>College</th><th>Name / PI</th><th>Project Title</th><th>SDG Goals</th>' +
-    '</tr></thead><tbody>';
-  rows.forEach(function(r, i) {
-    var cls = badgeMap[r.type] || '';
-    var lbl = labelMap[r.type] || r.type;
-    html += '<tr>' +
-      '<td style="color:var(--muted);">' + (i+1) + '</td>' +
-      '<td style="white-space:nowrap;">' + esc(r.timestamp||'') + '</td>' +
-      '<td><span class="et-badge ' + cls + '">' + lbl + '</span></td>' +
-      '<td title="' + esc(r.college||'') + '">' + esc(r.college||'—') + '</td>' +
-      '<td title="' + esc(r.name||'') + '">' + esc(r.name||'—') + '</td>' +
-      '<td title="' + esc(r.title||'') + '">' + esc(r.title||'—') + '</td>' +
-      '<td title="' + esc(r.sdg||'') + '" style="max-width:160px;">' + esc(r.sdg||'—') + '</td>' +
-    '</tr>';
-  });
-  html += '</tbody></table>';
-  body.innerHTML = html;
 }
 
-function esc(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+function goSub(sec,sub,btn) {
+  btn.parentElement.querySelectorAll('.type-tab').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on');
+  document.getElementById(sec+'-fac-wrap').style.display=(sub==='fac')?'':'none';
+  document.getElementById(sec+'-stu-wrap').style.display=(sub==='stu')?'':'none';
 }
-
-// Auto-load dashboard on page open
-window.addEventListener('DOMContentLoaded', function(){ loadDashboard(); });
 
 function sdgHtml(uid) {
-  var html = '<div class="sdg-grid" id="sdg-' + uid + '">';
-  SDG_DATA.forEach(function(s) {
-    var lines = (SHORT[s.label] || s.label).split('\n');
-    html += '<div class="sdg-tile" style="background:' + s.color + '" onclick="this.classList.toggle(\'sel\')" title="' + s.label + '">';
-    html += '<div class="sdg-num">' + s.n + '</div>';
-    lines.forEach(function(l){ html += '<div class="sdg-name">' + l + '</div>'; });
-    html += '</div>';
+  var h='<div class="sdg-grid" id="sdg-'+uid+'">';
+  SDG_DATA.forEach(function(s){
+    h+='<div class="sdg-item" onclick="this.classList.toggle(\'on\')" title="'+esc(s.label)+'">'+
+       '<div class="sdg-box" style="background:'+s.color+'"><span class="sdg-num">'+s.n+'</span>'+
+       '<span>'+esc(s.label)+'</span></div></div>';
   });
-  html += '</div>';
-  return html;
+  return h+'</div>';
+}
+
+function fld(label,req,inputHtml) {
+  var lbl = req ? '<label class="lbl req">'+label+'</label>' : '<label class="lbl">'+label+'</label>';
+  return '<div class="fld">'+lbl+inputHtml+'</div>';
+}
+
+function collegeSelect(name) {
+  return '<select name="'+name+'"><option value="">Select College</option>'+
+    '<option>Santosh Medical College (SMC)</option><option>Santosh Dental College (SDC)</option>'+
+    '<option>Allied Health Sciences (AHS)</option><option>CRF / DBMR</option></select>';
+}
+
+function fundingAgencySelect(name) {
+  return '<select name="'+name+'"><option value="">Select Agency</option>'+
+    '<option>ICMR</option><option>DBT</option><option>DST</option><option>CSIR</option>'+
+    '<option>AYUSH</option><option>BIRAC</option><option>SERB</option><option>WHO</option>'+
+    '<option>Fogarty / NIH</option><option>Industry Sponsored</option><option>Other</option></select>';
+}
+
+function ynSelect(name) {
+  return '<select name="'+name+'"><option value="">Select</option><option value="Yes">Yes</option><option value="No">No</option></select>';
 }
 
 function facForm(t) {
-  var isE = (t === 'ext');
-  var label = isE ? 'Extramural' : 'Intramural';
-  var badge = isE ? 'EXT' : 'INT';
-  return '<div class="form-card" id="fc-' + t + '-fac">' +
-  '<div class="fhead">' +
-  '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>' +
-  '<h3>' + label + ' Faculty Research — New Project Submission</h3>' +
-  '<span class="fbadge">' + badge + '</span>' +
-  '</div>' +
-  '<div class="fbody">' +
-  '<div class="sec"><div class="sec-lbl">Institution Details</div>' +
-  '<div class="r2">' +
-  '<div class="f"><label>College / Institution <span class="req">*</span></label>' +
-  '<select name="college"><option value="">Select College</option><option>Santosh Medical College &amp; Hospital</option><option>Santosh Dental College</option><option>CRF/DBMR</option><option>Santosh College of Allied Health Sciences</option></select></div>' +
-  '</div></div>' +
-  '<div class="sec"><div class="sec-lbl">Project Information</div>' +
-  '<div class="f"><label>Title of Project <span class="req">*</span></label><input type="text" name="projectTitle" placeholder="Enter full title of the research project"></div>' +
-  '<div class="r2">' +
-  '<div class="f"><label>Type of Project <span class="req">*</span></label>' +
-  '<input type="text" name="projectType" placeholder="e.g. Clinical Research, Basic Research, Observational Study…"></div>' +
-  '<div class="f"><label>Research Domain</label>' +
-  '<input type="text" name="researchDomain" placeholder="e.g. Biomedical Sciences, Clinical Sciences"></div>' +
-  '</div>' +
-  '<div class="r2">' +
-  '<div class="f"><label>Duration (months)</label><input type="number" name="duration" min="1" max="60" placeholder="e.g. 24"></div>' +
-  '<div class="f"><label>Estimated Budget (₹)</label><input type="number" name="budget" placeholder="e.g. 500000"></div>' +
-  '</div></div>' +
-  '<div class="sec"><div class="sec-lbl">Principal Investigator (PI)</div>' +
-  '<div class="r3">' +
-  '<div class="f"><label>Name of PI <span class="req">*</span></label><input type="text" name="piName" placeholder="Full name"></div>' +
-  '<div class="f"><label>Designation</label><input type="text" name="piDesignation" placeholder="e.g. Professor"></div>' +
-  '<div class="f"><label>Employee ID</label><input type="text" name="employeeId" placeholder="EMP-XXXX"></div>' +
-  '</div>' +
-  '<div class="r2">' +
-  '<div class="f"><label>Email</label><input type="email" name="piEmail" placeholder="pi@santoshuniversity.edu.in"></div>' +
-  '<div class="f"><label>Contact Number</label><input type="tel" name="piContact" placeholder="+91 XXXXX XXXXX"></div>' +
-  '</div></div>' +
-  '<div class="sec"><div class="sec-lbl">Ethics &amp; Identification</div>' +
-  '<div class="r2">' +
-  '<div class="f"><label>IEC Date Approved <span class="req">*</span></label>' +
-  '<input type="date" name="iecDateApproved"></div>' +
-  '</div>' +
-  '<div class="r2">' +
-  '<div class="f"><label>ORCID ID (PI)</label><input type="text" name="orcidPi" placeholder="0000-0000-0000-0000"></div>' +
-  '<div class="f"><label>ORCID ID (Co-Guide / Co-PI)</label><input type="text" name="orcidCoGuide" placeholder="0000-0000-0000-0000"></div>' +
-  '</div></div>' +
-  '<div class="sec"><div class="sec-lbl">Guide &amp; Co-Guide</div>' +
-  '<div class="r2">' +
-  '<div class="f"><label>Guide Name</label><input type="text" name="guideName" placeholder="Full name of Guide"></div>' +
-  '<div class="f"><label>Guide Designation &amp; Department</label><input type="text" name="guideDesig" placeholder="e.g. Prof., Pharmacology"></div>' +
-  '</div>' +
-  '<div class="r2">' +
-  '<div class="f"><label>Co-Guide Name</label><input type="text" name="coGuideName" placeholder="Full name of Co-Guide (if any)"></div>' +
-  '<div class="f"><label>Co-Guide Designation &amp; Department</label><input type="text" name="coGuideDesig" placeholder="e.g. Assoc. Prof., Anatomy"></div>' +
-  '</div></div>' +
-  (isE ?
-  '<div class="sec"><div class="sec-lbl">Funding Agency Details</div>' +
-  '<div class="r2">' +
-  '<div class="f"><label>Funding Agency <span class="req">*</span></label>' +
-  '<select name="fundingAgency"><option value="">Select Agency</option><option>ICMR</option><option>DBT</option><option>DST</option><option>CSIR</option><option>AYUSH</option><option>BIRAC</option><option>SERB</option><option>WHO</option><option>Fogarty / NIH</option><option>Industry Sponsored</option><option>Other</option></select></div>' +
-  '<div class="f"><label>Grant / Reference Number</label><input type="text" name="grantNumber" placeholder="Agency Grant No."></div>' +
-  '</div>' +
-  '<div class="r2">' +
-  '<div class="f"><label>Sanctioned Amount (₹)</label><input type="number" name="sanctionedAmt" placeholder="e.g. 2500000"></div>' +
-  '<div class="f"><label>Sanction Date</label><input type="date" name="sanctionDate"></div>' +
-  '</div></div>' : '') +
-  '<div class="sec"><div class="sec-lbl">SDG Goal Alignment</div>' +
-  '<p class="msg" style="margin-bottom:10px;">Click on the SDG goal(s) that this project aligns with (select all that apply):</p>' +
-  sdgHtml(t + '-fac') +
-  '</div>' +
-  '<div class="sec"><div class="sec-lbl">Project Abstract</div>' +
-  '<div class="f"><label>Abstract <span class="req">*</span></label><textarea name="abstract" placeholder="Brief abstract of the research project (max 500 words)..."></textarea></div>' +
-  '</div>' +
-  '<div class="sec"><div class="sec-lbl">Document Upload</div>' +
-  '<div class="r2">' +
-  '<div class="f"><label>Project Proposal (PDF)</label><input type="file" accept=".pdf" style="padding:6px;cursor:pointer;"></div>' +
-  '<div class="f"><label>IEC Approval Letter</label><input type="file" accept=".pdf,.jpg,.png" style="padding:6px;cursor:pointer;"></div>' +
-  '</div></div>' +
-  '</div>' +
-  '<div class="ffoot">' +
-  '<p class="msg">Fields marked <span style="color:var(--red);font-weight:600">*</span> are mandatory</p>' +
-  '<div style="display:flex;gap:8px;">' +
-  '<button class="btn-r" type="button" onclick="resetForm(\'fc-' + t + '-fac\')">Reset</button>' +
-  '<button class="btn-s" type="button" id="btn-' + t + '-fac" onclick="submitForm(\'' + t + '_fac\',\'fc-' + t + '-fac\',\'sdg-' + t + '-fac\',\'btn-' + t + '-fac\')">Submit Project →</button>' +
-  '</div></div>' +
-  '</div>';
+  var isE=(t==='ext'), label=isE?'Extramural':'Intramural', uid=t+'-fac';
+  return '<div class="card card-accent" id="fc-'+uid+'">'+
+  '<div class="section-hd">'+label+' Faculty Research &mdash; New Project Submission</div>'+
+
+  '<div class="sec-sep"><div class="section-hd" style="font-size:.62rem">Institution Details</div>'+
+  '<div class="g3">'+fld('College / Institution',1,collegeSelect('college'))+fld('Name',1,'<input type="text" name="facultyName" placeholder="Full name of faculty member">')+fld('Year of Start',1,'<input type="number" name="yearStart" min="2000" max="2099" placeholder="e.g. 2024">')+'</div></div>'+
+
+  '<div class="sec-sep"><div class="section-hd" style="font-size:.62rem">Project Information</div>'+
+  fld('Project Title',1,'<input type="text" name="projectTitle" placeholder="Enter full title of the research project">')+
+  '<div class="g2">'+fld('Unique Project ID',1,'<input type="text" name="uniqueProjectId" placeholder="e.g. SDU-RES-2024-001">')+'</div></div>'+
+
+  '<div class="sec-sep"><div class="section-hd" style="font-size:.62rem">Principal Investigator (PI)</div>'+
+  '<div class="g3">'+fld('PI Name',1,'<input type="text" name="piName" placeholder="Full name">')+fld('PI ORCID ID',0,'<input type="text" name="piOrcid" placeholder="0000-0000-0000-0000">')+fld('PI Department',1,'<input type="text" name="piDept" placeholder="e.g. Pharmacology">')+'</div></div>'+
+
+  '<div class="sec-sep"><div class="section-hd" style="font-size:.62rem">Co-Principal Investigator (Co-PI)</div>'+
+  '<div class="g3">'+fld('Co-PI Name',0,'<input type="text" name="coPiName" placeholder="Full name (if applicable)">')+fld('Co-PI ORCID ID',0,'<input type="text" name="coPiOrcid" placeholder="0000-0000-0000-0000">')+fld('Co-PI Department',0,'<input type="text" name="coPiDept" placeholder="e.g. Anatomy">')+'</div></div>'+
+
+  '<div class="sec-sep"><div class="section-hd" style="font-size:.62rem">Ethics Clearance</div>'+
+  '<div class="g2">'+fld('IEC Approval Number',1,'<input type="text" name="iecApprovalNumber" placeholder="e.g. SDU/IEC/2024/001">')+'</div></div>'+
+
+  '<div class="sec-sep"><div class="section-hd" style="font-size:.62rem">SDG Goal Alignment <span style="text-transform:none;letter-spacing:0;font-weight:400">(select all that apply)</span></div>'+
+  '<p style="font-size:.78rem;color:#5a5a7a;margin-bottom:.6rem">Click the SDG goals this project aligns with.</p>'+
+  sdgHtml(uid)+'</div>'+
+
+  '<div class="sec-sep"><div class="section-hd" style="font-size:.62rem">Research Classification</div>'+
+  '<div class="g2">'+fld('Translational Research',1,ynSelect('translationalResearch'))+
+  fld('Clinical Trial',1,'<select name="clinicalTrial" id="'+uid+'-ct-sel" onchange="toggleCTRI(\''+uid+'\')"><option value="">Select</option><option value="Yes">Yes</option><option value="No">No</option></select>')+'</div>'+
+  '<div class="g2" id="'+uid+'-ctri-wrap" style="display:none">'+fld('CTRI Number',1,'<input type="text" name="ctriNumber" placeholder="CTRI/20XX/XX/XXXXXX">')+'</div></div>'+
+
+  (!isE ? '<div class="sec-sep"><div class="section-hd" style="font-size:.62rem">Intramural / Seed Money Funding</div>'+
+  '<div class="g3">'+fld('Funded (Intra/Seed)',1,ynSelect('intraFunded'))+fld('Amount (&#8377;)',0,'<input type="number" name="intraAmount" placeholder="e.g. 50000">')+fld('Date of Sanction',0,'<input type="date" name="intraSanctionDate">')+'</div></div>' : '')+
+
+  (isE ? '<div class="sec-sep"><div class="section-hd" style="font-size:.62rem">Extramural Funding Details</div>'+
+  '<div class="g3">'+fld('Funding Agency',1,fundingAgencySelect('fundingAgency'))+fld('Amount (&#8377;)',1,'<input type="number" name="extAmount" placeholder="e.g. 2500000">')+fld('Date of Sanction',1,'<input type="date" name="extSanctionDate">')+'</div></div>' : '')+
+
+  '<div style="display:flex;gap:.8rem;align-items:center;margin-top:1.4rem;padding-top:1rem;border-top:1px solid #d4c9b0">'+
+  '<button class="btn-red" id="btn-'+uid+'" type="button" onclick="submitForm(\''+t+'_fac\',\'fc-'+uid+'\',\'sdg-'+uid+'\',\'btn-'+uid+'\')">Submit Project &rarr;</button>'+
+  '<button class="btn-out" type="button" onclick="resetForm(\'fc-'+uid+'\')">Reset</button>'+
+  '<span style="font-size:.78rem;color:#5a5a7a;margin-left:.3rem">Fields marked <strong style="color:#c8102e">*</strong> are required</span>'+
+  '</div></div>';
 }
 
 function stuForm(t) {
-  var isE = (t === 'ext');
-  var label = isE ? 'Extramural' : 'Intramural';
-  var badge = isE ? 'EXT' : 'INT';
-  return '<div class="form-card" id="fc-' + t + '-stu">' +
-  '<div class="fhead">' +
-  '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>' +
-  '<h3>' + label + ' Student Research — New Project Submission</h3>' +
-  '<span class="fbadge">' + badge + '</span>' +
-  '</div>' +
-  '<div class="fbody">' +
-  '<div class="sec"><div class="sec-lbl">Academic Details</div>' +
-  '<div class="r2">' +
-  '<div class="f"><label>College <span class="req">*</span></label>' +
-  '<select name="college"><option value="">Select College</option><option>Santosh Medical College &amp; Hospital</option><option>Santosh Dental College</option><option>CRF/DBMR</option><option>Santosh College of Allied Health Sciences</option></select></div>' +
-  '</div>' +
-  '<div class="r3">' +
-  '<div class="f"><label>Programme <span class="req">*</span></label>' +
-  '<select name="programme"><option value="">Select</option><option>MBBS</option><option>BDS</option><option>B.Pharm</option><option>B.Sc Nursing</option><option>M.D.</option><option>M.S.</option><option>MDS</option><option>M.Pharm</option><option>Ph.D.</option></select></div>' +
-  '<div class="f"><label>Year / Semester</label><input type="text" name="yearSemester" placeholder="e.g. 3rd Year"></div>' +
-  '<div class="f"><label>Enrollment No.</label><input type="text" name="enrollmentNo" placeholder="SU-XXXX-XXXX"></div>' +
-  '</div></div>' +
-  '<div class="sec"><div class="sec-lbl">Student Details</div>' +
-  '<div class="r2">' +
-  '<div class="f"><label>Student Name <span class="req">*</span></label><input type="text" name="studentName" placeholder="Full name"></div>' +
-  '<div class="f"><label>Email</label><input type="email" name="studentEmail" placeholder="student@santoshuniversity.edu.in"></div>' +
-  '</div>' +
-  '<div class="r2">' +
-  '<div class="f"><label>Contact Number</label><input type="tel" name="studentContact" placeholder="+91 XXXXX XXXXX"></div>' +
-  '<div class="f"><label>ORCID ID</label><input type="text" name="orcidStudent" placeholder="0000-0000-0000-0000 (if available)"></div>' +
-  '</div></div>' +
-  '<div class="sec"><div class="sec-lbl">Project Information</div>' +
-  '<div class="f"><label>Title of Project <span class="req">*</span></label><input type="text" name="projectTitle" placeholder="Enter full title of the research project"></div>' +
-  '<div class="r2">' +
-  '<div class="f"><label>Duration (months)</label><input type="number" name="duration" min="1" max="36" placeholder="e.g. 6"></div>' +
-  '</div></div>' +
-  '<div class="sec"><div class="sec-lbl">Guide &amp; Co-Guide</div>' +
-  '<div class="r2">' +
-  '<div class="f"><label>Guide Name <span class="req">*</span></label><input type="text" name="guideName" placeholder="Full name"></div>' +
-  '<div class="f"><label>Guide Designation &amp; Department</label><input type="text" name="guideDesig" placeholder="e.g. Prof., Medicine"></div>' +
-  '</div>' +
-  '<div class="r2">' +
-  '<div class="f"><label>Guide ORCID ID</label><input type="text" name="guideOrcid" placeholder="0000-0000-0000-0000"></div>' +
-  '<div class="f"><label>Guide Email</label><input type="email" name="guideEmail" placeholder="guide@santoshuniversity.edu.in"></div>' +
-  '</div>' +
-  '<div class="r2">' +
-  '<div class="f"><label>Co-Guide Name</label><input type="text" name="coGuideName" placeholder="Co-Guide name (if any)"></div>' +
-  '<div class="f"><label>Co-Guide ORCID ID</label><input type="text" name="coGuideOrcid" placeholder="0000-0000-0000-0000"></div>' +
-  '</div></div>' +
-  '<div class="sec"><div class="sec-lbl">Ethics Clearance</div>' +
-  '<div class="r2">' +
-  '<div class="f"><label>IEC Date Approved <span class="req">*</span></label>' +
-  '<input type="date" name="iecDateApproved"></div>' +
-  '</div></div>' +
-  (isE ?
-  '<div class="sec"><div class="sec-lbl">Funding Details</div>' +
-  '<div class="r2">' +
-  '<div class="f"><label>Funding Source</label>' +
-  '<select name="fundingSource"><option value="">Select</option><option>ICMR-STS</option><option>DBT</option><option>DST</option><option>Industry</option><option>Other</option></select></div>' +
-  '<div class="f"><label>Grant / Reference Number</label><input type="text" name="grantNumber" placeholder="Grant No."></div>' +
-  '</div></div>' : '') +
-  '<div class="sec"><div class="sec-lbl">SDG Goal Alignment</div>' +
-  '<p class="msg" style="margin-bottom:10px;">Click on the SDG goal(s) that this project aligns with (select all that apply):</p>' +
-  sdgHtml(t + '-stu') +
-  '</div>' +
-  '<div class="sec"><div class="sec-lbl">Abstract</div>' +
-  '<div class="f"><label>Project Abstract <span class="req">*</span></label><textarea name="abstract" placeholder="Brief description (max 300 words)..."></textarea></div>' +
-  '</div>' +
-  '<div class="sec"><div class="sec-lbl">Document Upload</div>' +
-  '<div class="f"><label>Synopsis / Proposal (PDF)</label><input type="file" accept=".pdf" style="padding:6px;cursor:pointer;"></div>' +
-  '</div>' +
-  '</div>' +
-  '<div class="ffoot">' +
-  '<p class="msg">Fields marked <span style="color:var(--red);font-weight:600">*</span> are mandatory</p>' +
-  '<div style="display:flex;gap:8px;">' +
-  '<button class="btn-r" type="button" onclick="resetForm(\'fc-' + t + '-stu\')">Reset</button>' +
-  '<button class="btn-s" type="button" id="btn-' + t + '-stu" onclick="submitForm(\'' + t + '_stu\',\'fc-' + t + '-stu\',\'sdg-' + t + '-stu\',\'btn-' + t + '-stu\')">Submit Project →</button>' +
-  '</div></div>' +
-  '</div>';
+  var isE=(t==='ext'), label=isE?'Extramural':'Intramural', uid=t+'-stu';
+  return '<div class="card card-accent" id="fc-'+uid+'">'+
+  '<div class="section-hd">'+label+' Student Research &mdash; New Project Submission</div>'+
+
+  '<div class="sec-sep"><div class="section-hd" style="font-size:.62rem">Academic Details</div>'+
+  '<div class="g3">'+fld('College',1,collegeSelect('college'))+
+  fld('Programme',1,'<select name="programme"><option value="">Select</option><option>MBBS</option><option>BDS</option><option>B.Pharm</option><option>B.Sc Nursing</option><option>M.D.</option><option>M.S.</option><option>MDS</option><option>M.Pharm</option><option>Ph.D.</option></select>')+
+  fld('Year / Semester',0,'<input type="text" name="yearSemester" placeholder="e.g. 3rd Year">')+'</div></div>'+
+
+  '<div class="sec-sep"><div class="section-hd" style="font-size:.62rem">Student Details</div>'+
+  '<div class="g2">'+fld('Student Name',1,'<input type="text" name="studentName" placeholder="Full name">')+fld('Enrollment No.',0,'<input type="text" name="enrollmentNo" placeholder="SU-XXXX-XXXX">')+'</div></div>'+
+
+  '<div class="sec-sep"><div class="section-hd" style="font-size:.62rem">Project Information</div>'+
+  fld('Project Title',1,'<input type="text" name="projectTitle" placeholder="Enter full title of the research project">')+'</div>'+
+
+  '<div class="sec-sep"><div class="section-hd" style="font-size:.62rem">Guide &amp; Co-Guide</div>'+
+  '<div class="g3">'+fld('Guide Name',1,'<input type="text" name="guideName" placeholder="Full name">')+fld('Guide ORCID ID',0,'<input type="text" name="guideOrcid" placeholder="0000-0000-0000-0000">')+fld('Guide Designation &amp; Dept',0,'<input type="text" name="guideDesig" placeholder="e.g. Prof., Medicine">')+'</div>'+
+  '<div class="g3">'+fld('Co-Guide Name',0,'<input type="text" name="coGuideName" placeholder="Co-Guide (if any)">')+fld('Co-Guide ORCID ID',0,'<input type="text" name="coGuideOrcid" placeholder="0000-0000-0000-0000">')+fld('Co-Guide Department',0,'<input type="text" name="coGuideDept" placeholder="e.g. Anatomy">')+'</div></div>'+
+
+  '<div class="sec-sep"><div class="section-hd" style="font-size:.62rem">Ethics Clearance</div>'+
+  '<div class="g2">'+fld('IEC Approval Number',1,'<input type="text" name="iecApprovalNumber" placeholder="e.g. SDU/IEC/2024/001">')+'</div></div>'+
+
+  '<div class="sec-sep"><div class="section-hd" style="font-size:.62rem">SDG Goal Alignment <span style="text-transform:none;letter-spacing:0;font-weight:400">(select all that apply)</span></div>'+
+  sdgHtml(uid)+'</div>'+
+
+  '<div class="sec-sep"><div class="section-hd" style="font-size:.62rem">Research Classification</div>'+
+  '<div class="g2">'+fld('Translational Research',1,ynSelect('translationalResearch'))+
+  fld('Clinical Trial',1,'<select name="clinicalTrial" id="'+uid+'-ct-sel" onchange="toggleCTRI(\''+uid+'\')"><option value="">Select</option><option value="Yes">Yes</option><option value="No">No</option></select>')+'</div>'+
+  '<div class="g2" id="'+uid+'-ctri-wrap" style="display:none">'+fld('CTRI Number',1,'<input type="text" name="ctriNumber" placeholder="CTRI/20XX/XX/XXXXXX">')+'</div></div>'+
+
+  (!isE ? '<div class="sec-sep"><div class="section-hd" style="font-size:.62rem">Intramural / Seed Money Funding</div>'+
+  '<div class="g3">'+fld('Funded (Intra/Seed)',1,ynSelect('intraFunded'))+fld('Amount (&#8377;)',0,'<input type="number" name="intraAmount" placeholder="e.g. 50000">')+fld('Date of Sanction',0,'<input type="date" name="intraSanctionDate">')+'</div></div>' : '')+
+
+  (isE ? '<div class="sec-sep"><div class="section-hd" style="font-size:.62rem">Extramural Funding Details</div>'+
+  '<div class="g3">'+fld('Funding Agency',1,fundingAgencySelect('fundingAgency'))+fld('Amount (&#8377;)',1,'<input type="number" name="extAmount" placeholder="e.g. 2500000">')+fld('Date of Sanction',1,'<input type="date" name="extSanctionDate">')+'</div></div>' : '')+
+
+  '<div style="display:flex;gap:.8rem;align-items:center;margin-top:1.4rem;padding-top:1rem;border-top:1px solid #d4c9b0">'+
+  '<button class="btn-red" id="btn-'+uid+'" type="button" onclick="submitForm(\''+t+'_stu\',\'fc-'+uid+'\',\'sdg-'+uid+'\',\'btn-'+uid+'\')">Submit Project &rarr;</button>'+
+  '<button class="btn-out" type="button" onclick="resetForm(\'fc-'+uid+'\')">Reset</button>'+
+  '<span style="font-size:.78rem;color:#5a5a7a;margin-left:.3rem">Fields marked <strong style="color:#c8102e">*</strong> are required</span>'+
+  '</div></div>';
 }
 
-function submitForm(formType, cardId, sdgId, btnId) {
-  var card = document.getElementById(cardId);
-  var btn  = document.getElementById(btnId);
-  var data = { formType: formType };
-  var fields = card.querySelectorAll('input[name], select[name], textarea[name]');
-  fields.forEach(function(el) {
-    if (el.closest('.f') && el.closest('.f').style.display === 'none') return;
-    data[el.name] = el.value;
-  });
-  var sdgContainer = document.getElementById(sdgId);
-  if (sdgContainer) {
-    var selected = [];
-    sdgContainer.querySelectorAll('.sdg-tile.sel').forEach(function(el) {
-      selected.push(el.getAttribute('title'));
-    });
-    data.sdgGoals = selected.join(', ');
-  }
-  var orig = btn.textContent;
-  btn.textContent = 'Submitting...';
-  btn.disabled = true;
-  fetch(SCRIPT_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  })
-  .then(function() {
-    btn.textContent = '✓ Submitted!';
-    btn.style.background = '#1b6e35';
-    showToast('✅ Project submitted successfully!', 'ok');
-    setTimeout(function() {
-      btn.textContent = orig;
-      btn.style.background = '';
-      btn.disabled = false;
-    }, 3500);
-  })
-  .catch(function(err) {
-    btn.textContent = '⚠ Error — Retry';
-    btn.style.background = '#c0392b';
-    btn.disabled = false;
-    showToast('❌ Submission failed. Check console.', 'err');
-    console.error(err);
-  });
+function toggleCTRI(uid) {
+  var v=document.getElementById(uid+'-ct-sel').value;
+  document.getElementById(uid+'-ctri-wrap').style.display=(v==='Yes')?'grid':'none';
+}
+
+function submitForm(formType,cardId,sdgId,btnId) {
+  var card=document.getElementById(cardId), btn=document.getElementById(btnId);
+  var data={formType:formType};
+  card.querySelectorAll('input[name],select[name],textarea[name]').forEach(function(el){ data[el.name]=el.value; });
+  var sdgEl=document.getElementById(sdgId);
+  if(sdgEl){ var sel=[]; sdgEl.querySelectorAll('.sdg-item.on').forEach(function(el){sel.push(el.title);}); data.sdgGoals=sel.join(', '); }
+  var orig=btn.textContent; btn.textContent='Submitting\u2026'; btn.disabled=true;
+  fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
+    .then(function(){ btn.textContent='\u2713 Submitted!'; btn.style.background='#16a34a'; showToast('Project submitted successfully!','ok'); setTimeout(function(){btn.textContent=orig;btn.style.background='';btn.disabled=false;},3500); })
+    .catch(function(){ btn.textContent='\u26a0 Error \u2014 Retry'; btn.style.background='#c8102e'; btn.disabled=false; showToast('Submission failed. Check console.','err'); });
 }
 
 function resetForm(cardId) {
-  var card = document.getElementById(cardId);
-  card.querySelectorAll('input:not([type=file]), select, textarea').forEach(function(el) { el.value = ''; });
-  card.querySelectorAll('.sdg-tile.sel').forEach(function(el) { el.classList.remove('sel'); });
+  var card=document.getElementById(cardId);
+  card.querySelectorAll('input:not([type=file]),select,textarea').forEach(function(el){el.value='';});
+  card.querySelectorAll('.sdg-item.on').forEach(function(el){el.classList.remove('on');});
 }
 
-function showToast(msg, type) {
-  var t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'toast ' + type + ' show';
-  setTimeout(function() { t.className = 'toast'; }, 4000);
+var _charts = {};
+
+function loadDashboard() {
+  fetch(SCRIPT_URL+'?action=stats').then(function(r){return r.json();}).then(function(d){
+    var ef=d.ext_fac||0,es=d.ext_stu||0,if2=d.int_fac||0,is2=d.int_stu||0;
+    updateDashStats(ef,es,if2,is2);
+  }).catch(function(){
+    // Use demo data if API not connected
+    updateDashStats(14,8,11,6);
+  });
 }
 
-function toggleIEC(t) {
-  var v = document.getElementById(t + '-iec-s').value;
-  document.getElementById(t + '-iec-f').style.display = (v === 'existing') ? 'flex' : 'none';
-}
-function toggleIECS(t) {
-  var v = document.getElementById(t + 's-iec-s').value;
-  document.getElementById(t + 's-iec-f').style.display = (v === 'existing') ? 'flex' : 'none';
+function updateDashStats(ef,es,if2,is2) {
+  var facT=ef+if2, stuT=es+is2, extT=ef+es, intT=if2+is2, total=facT+stuT;
+  setEl('dash-fac-total',facT); setEl('dash-fac-ext',ef); setEl('dash-fac-int',if2);
+  setEl('dash-stu-total',stuT); setEl('dash-stu-ext',es); setEl('dash-stu-int',is2);
+  setEl('dash-ext-total',extT); setEl('dash-ext-fac',ef); setEl('dash-ext-stu',es);
+  setEl('dash-int-total',intT); setEl('dash-int-fac',if2); setEl('dash-int-stu',is2);
+  setBar('dash-fac-bar',total?facT/total*100:0);
+  setBar('dash-stu-bar',total?stuT/total*100:0);
+  setBar('dash-ext-bar',total?extT/total*100:0);
+  setBar('dash-int-bar',total?intT/total*100:0);
+  drawPie(ef,es,if2,is2);
+  drawBar(ef,es,if2,is2);
+  drawDonut(extT,intT);
+  drawTrend(ef,es,if2,is2);
 }
 
-function allNav(btn) {
-  document.querySelectorAll('.nbtn').forEach(function(b) { b.classList.remove('on'); });
-  if (btn) btn.classList.add('on');
+// ── CANVAS HELPERS ──
+function clearCanvas(id) {
+  var c=document.getElementById(id);
+  if(!c) return null;
+  var ctx=c.getContext('2d');
+  ctx.clearRect(0,0,c.width,c.height);
+  return {c:c,ctx:ctx};
 }
-function goHome(btn) {
-  allNav(btn);
-  document.getElementById('home-view').classList.remove('hidden');
-  document.getElementById('ext-view').classList.add('hidden');
-  document.getElementById('int-view').classList.add('hidden');
+
+function drawPie(ef,es,if2,is2) {
+  var r=clearCanvas('pie-chart'); if(!r) return;
+  var ctx=r.ctx, cx=100, cy=100, rad=85;
+  var data=[
+    {v:ef,color:'#c8102e',label:'Ext Faculty'},
+    {v:es,color:'#e8494f',label:'Ext Student'},
+    {v:if2,color:'#1a2744',label:'Int Faculty'},
+    {v:is2,color:'#3d5a8a',label:'Int Student'}
+  ];
+  var total=ef+es+if2+is2||1, angle=-Math.PI/2;
+  data.forEach(function(d){
+    var slice=(d.v/total)*2*Math.PI;
+    ctx.beginPath(); ctx.moveTo(cx,cy);
+    ctx.arc(cx,cy,rad,angle,angle+slice);
+    ctx.closePath(); ctx.fillStyle=d.color; ctx.fill();
+    ctx.strokeStyle='#fffdf8'; ctx.lineWidth=2; ctx.stroke();
+    // value label inside slice
+    if(d.v>0){
+      var mid=angle+slice/2;
+      var lx=cx+Math.cos(mid)*rad*0.62, ly=cy+Math.sin(mid)*rad*0.62;
+      ctx.fillStyle='#fff'; ctx.font='bold 12px Georgia,serif';
+      ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.fillText(d.v,lx,ly);
+    }
+    angle+=slice;
+  });
+  // legend
+  var leg=document.getElementById('pie-legend');
+  if(leg){ leg.innerHTML=''; data.forEach(function(d){
+    leg.innerHTML+='<div style="display:flex;align-items:center;gap:.4rem">'+
+      '<span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:'+d.color+'"></span>'+
+      '<span style="color:#1a1a2e">'+d.label+' <b style="color:#c8102e">('+d.v+')</b></span></div>';
+  }); }
 }
-function goSection(sec, btn) {
-  allNav(btn);
-  document.getElementById('home-view').classList.add('hidden');
-  document.getElementById('ext-view').classList.add('hidden');
-  document.getElementById('int-view').classList.add('hidden');
-  document.getElementById(sec + '-view').classList.remove('hidden');
-  if (!document.getElementById(sec + '-fac-wrap').innerHTML) {
-    document.getElementById(sec + '-fac-wrap').innerHTML = facForm(sec);
-    document.getElementById(sec + '-stu-wrap').innerHTML = stuForm(sec);
+
+function drawBar(ef,es,if2,is2) {
+  var r=clearCanvas('bar-chart'); if(!r) return;
+  var ctx=r.ctx, W=r.c.width, H=r.c.height;
+  var groups=[
+    {label:'Ext Faculty',v:ef,color:'#c8102e'},
+    {label:'Ext Student',v:es,color:'#e8494f'},
+    {label:'Int Faculty',v:if2,color:'#1a2744'},
+    {label:'Int Student',v:is2,color:'#3d5a8a'}
+  ];
+  var padL=32,padR=16,padT=16,padB=44;
+  var maxV=Math.max.apply(null,groups.map(function(g){return g.v;}))||1;
+  var bw=(W-padL-padR)/groups.length, gap=bw*0.25;
+  // grid lines
+  ctx.strokeStyle='#e8e0d0'; ctx.lineWidth=1;
+  for(var i=0;i<=4;i++){
+    var y=padT+(H-padT-padB)*i/4;
+    ctx.beginPath(); ctx.moveTo(padL,y); ctx.lineTo(W-padR,y); ctx.stroke();
+    ctx.fillStyle='#5a5a7a'; ctx.font='10px Georgia,serif'; ctx.textAlign='right';
+    ctx.fillText(Math.round(maxV*(4-i)/4),padL-4,y+4);
   }
+  groups.forEach(function(g,i){
+    var barH=(g.v/maxV)*(H-padT-padB);
+    var x=padL+i*bw+gap/2, y=H-padB-barH, w=bw-gap;
+    // shadow
+    ctx.fillStyle='rgba(0,0,0,.06)';
+    ctx.fillRect(x+2,y+2,w,barH);
+    ctx.fillStyle=g.color;
+    ctx.fillRect(x,y,w,barH);
+    // value on top
+    if(g.v>0){
+      ctx.fillStyle='#1a1a2e'; ctx.font='bold 11px Georgia,serif'; ctx.textAlign='center';
+      ctx.fillText(g.v,x+w/2,y-5);
+    }
+    // label below
+    ctx.fillStyle='#5a5a7a'; ctx.font='9px Georgia,serif'; ctx.textAlign='center';
+    var words=g.label.split(' ');
+    ctx.fillText(words[0],x+w/2,H-padB+14);
+    ctx.fillText(words[1]||'',x+w/2,H-padB+25);
+  });
 }
-function goSub(sec, sub, btn) {
-  btn.parentElement.querySelectorAll('.stab').forEach(function(b) { b.classList.remove('on'); });
-  btn.classList.add('on');
-  document.getElementById(sec + '-fac-wrap').classList.toggle('hidden', sub !== 'fac');
-  document.getElementById(sec + '-stu-wrap').classList.toggle('hidden', sub !== 'stu');
+
+function drawDonut(extT,intT) {
+  var r=clearCanvas('donut-chart'); if(!r) return;
+  var ctx=r.ctx, cx=100, cy=100, outer=85, inner=48;
+  var data=[
+    {v:extT,color:'#16a34a',label:'Extramural'},
+    {v:intT,color:'#d97706',label:'Intramural'}
+  ];
+  var total=extT+intT||1, angle=-Math.PI/2;
+  data.forEach(function(d){
+    var slice=(d.v/total)*2*Math.PI;
+    ctx.beginPath(); ctx.moveTo(cx+Math.cos(angle)*inner,cy+Math.sin(angle)*inner);
+    ctx.arc(cx,cy,outer,angle,angle+slice);
+    ctx.arc(cx,cy,inner,angle+slice,angle,true);
+    ctx.closePath(); ctx.fillStyle=d.color; ctx.fill();
+    ctx.strokeStyle='#fffdf8'; ctx.lineWidth=2; ctx.stroke();
+    if(d.v>0){
+      var mid=angle+slice/2;
+      var lx=cx+Math.cos(mid)*(inner+(outer-inner)*0.5), ly=cy+Math.sin(mid)*(inner+(outer-inner)*0.5);
+      ctx.fillStyle='#fff'; ctx.font='bold 11px Georgia,serif';
+      ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.fillText(d.v,lx,ly);
+    }
+    angle+=slice;
+  });
+  // center label
+  ctx.fillStyle='#1a1a2e'; ctx.font='bold 14px Georgia,serif';
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText(extT+intT,cx,cy-6);
+  ctx.fillStyle='#5a5a7a'; ctx.font='9px Georgia,serif';
+  ctx.fillText('Total',cx,cy+8);
+  // legend
+  var leg=document.getElementById('donut-legend');
+  if(leg){ leg.innerHTML=''; data.forEach(function(d){
+    var pct=total?Math.round(d.v/total*100):0;
+    leg.innerHTML+='<div style="display:flex;align-items:center;gap:.4rem">'+
+      '<span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:'+d.color+'"></span>'+
+      '<span style="color:#1a1a2e">'+d.label+' <b style="color:'+d.color+'">('+d.v+' &mdash; '+pct+'%)</b></span></div>';
+  }); }
 }
+
+function drawTrend(ef,es,if2,is2) {
+  var r=clearCanvas('trend-chart'); if(!r) return;
+  var ctx=r.ctx, W=r.c.width, H=r.c.height;
+  // Grouped bar: Faculty vs Student, split by Ext/Int
+  var padL=32,padR=16,padT=16,padB=44;
+  var groups=[
+    {label:'Extramural',vals:[ef,es],colors:['#c8102e','#e8494f']},
+    {label:'Intramural',vals:[if2,is2],colors:['#1a2744','#3d5a8a']}
+  ];
+  var maxV=Math.max(ef,es,if2,is2)||1;
+  var groupW=(W-padL-padR)/groups.length, subW=groupW/2-4, gap=groupW*0.12;
+  // grid
+  ctx.strokeStyle='#e8e0d0'; ctx.lineWidth=1;
+  for(var i=0;i<=4;i++){
+    var y=padT+(H-padT-padB)*i/4;
+    ctx.beginPath(); ctx.moveTo(padL,y); ctx.lineTo(W-padR,y); ctx.stroke();
+    ctx.fillStyle='#5a5a7a'; ctx.font='10px Georgia,serif'; ctx.textAlign='right';
+    ctx.fillText(Math.round(maxV*(4-i)/4),padL-4,y+4);
+  }
+  groups.forEach(function(g,gi){
+    var gx=padL+gi*groupW+gap;
+    g.vals.forEach(function(v,si){
+      var barH=(v/maxV)*(H-padT-padB);
+      var x=gx+si*(subW+2), y=H-padB-barH;
+      ctx.fillStyle='rgba(0,0,0,.05)';
+      ctx.fillRect(x+2,y+2,subW,barH);
+      ctx.fillStyle=g.colors[si];
+      ctx.fillRect(x,y,subW,barH);
+      if(v>0){
+        ctx.fillStyle='#1a1a2e'; ctx.font='bold 10px Georgia,serif'; ctx.textAlign='center';
+        ctx.fillText(v,x+subW/2,y-5);
+      }
+    });
+    // group label
+    ctx.fillStyle='#5a5a7a'; ctx.font='9px Georgia,serif'; ctx.textAlign='center';
+    ctx.fillText(g.label,gx+(subW*2+2)/2,H-padB+14);
+  });
+  // sub-legend
+  ctx.fillStyle='#c8102e'; ctx.fillRect(padL,H-padB+28,10,8);
+  ctx.fillStyle='#5a5a7a'; ctx.font='9px Georgia,serif'; ctx.textAlign='left';
+  ctx.fillText('Faculty',padL+13,H-padB+36);
+  ctx.fillStyle='#e8494f'; ctx.fillRect(padL+60,H-padB+28,10,8);
+  ctx.fillText('Student',padL+73,H-padB+36);
+}
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+function showToast(msg,type){
+  var t=document.getElementById('toast');
+  t.textContent=msg; t.className='toast '+(type||'info'); t.style.display='block';
+  setTimeout(function(){t.style.display='none';},4000);
+}
+
+function checkConnection(){
+  fetch(SCRIPT_URL+'?action=stats')
+    .then(function(){ document.getElementById('conn-dot').className='status-dot dot-green'; document.getElementById('conn-text').textContent='Connected'; })
+    .catch(function(){ document.getElementById('conn-dot').className='status-dot dot-red'; document.getElementById('conn-text').textContent='Offline'; });
+}
+
+window.addEventListener('DOMContentLoaded',function(){checkConnection();});
 </script>
 </body>
 </html>
