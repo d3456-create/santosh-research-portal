@@ -120,6 +120,12 @@ tbody tr:hover td{background:#fdf6ee}
 .split-bar{margin-top:.6rem;height:5px;border-radius:3px;background:#e8e0d0;overflow:hidden}
 .split-bar-fill{height:100%;border-radius:3px;transition:width .4s}
 .empty{text-align:center;padding:2.5rem 1rem;color:#5a5a7a;font-size:.88rem;font-style:italic}
+.repeater-row{position:relative;background:#fdf8f2;border:1px dashed #d4c9b0;border-radius:4px;padding:.7rem .8rem;margin-bottom:.5rem}
+.repeater-row:first-child{background:transparent;border:none;padding:.0rem 0;margin-bottom:.5rem}
+.btn-remove{background:none;border:1px solid #c8102e;cursor:pointer;color:#c8102e;font-size:.75rem;padding:.25rem .5rem;border-radius:3px;line-height:1;flex-shrink:0;font-family:Georgia,serif;font-weight:700;transition:all .15s}
+.btn-remove:hover{background:#c8102e;color:#fff}
+.add-row-btn{display:inline-flex;align-items:center;gap:.3rem;background:none;border:1.5px dashed #1a2744;color:#1a2744;padding:.35rem .9rem;font-family:Georgia,serif;font-size:.78rem;font-weight:700;cursor:pointer;border-radius:4px;margin-top:.4rem;transition:all .15s}
+.add-row-btn:hover{background:#1a2744;color:#fff}
 </style>
 </head>
 <body>
@@ -331,8 +337,10 @@ function facForm(t) {
   '<div class="sec-sep"><div class="section-hd" style="font-size:.62rem">Principal Investigator (PI)</div>'+
   '<div class="g3">'+fld('PI Name',1,'<input type="text" name="piName" placeholder="Full name">')+fld('PI ORCID ID',0,'<input type="text" name="piOrcid" placeholder="0000-0000-0000-0000">')+fld('PI Department',1,'<input type="text" name="piDept" placeholder="e.g. Pharmacology">')+'</div></div>'+
 
-  '<div class="sec-sep"><div class="section-hd" style="font-size:.62rem">Co-Principal Investigator (Co-PI)</div>'+
-  '<div class="g3">'+fld('Co-PI Name',0,'<input type="text" name="coPiName" placeholder="Full name (if applicable)">')+fld('Co-PI ORCID ID',0,'<input type="text" name="coPiOrcid" placeholder="0000-0000-0000-0000">')+fld('Co-PI Department',0,'<input type="text" name="coPiDept" placeholder="e.g. Anatomy">')+'</div></div>'+
+  '<div class="sec-sep"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem">'+
+  '<span class="section-hd" style="border:none;padding:0;margin:0">Co-Principal Investigator (Co-PI)</span>'+
+  '<button type="button" class="add-row-btn" onclick="addCoPi(\''+uid+'-copi-list\')">&#43; Add Co-PI</button></div>'+
+  '<div id="'+uid+'-copi-list">'+coPiRow(uid,0)+'</div></div>'+
 
   '<div class="sec-sep"><div class="section-hd" style="font-size:.62rem">Ethics Clearance</div>'+
   '<div class="g2">'+fld('IEC Approval Number',1,'<input type="text" name="iecApprovalNumber" placeholder="e.g. SDU/IEC/2024/001">')+'</div></div>'+
@@ -375,9 +383,11 @@ function stuForm(t) {
   '<div class="sec-sep"><div class="section-hd" style="font-size:.62rem">Project Information</div>'+
   fld('Project Title',1,'<input type="text" name="projectTitle" placeholder="Enter full title of the research project">')+'</div>'+
 
-  '<div class="sec-sep"><div class="section-hd" style="font-size:.62rem">Guide &amp; Co-Guide</div>'+
+  '<div class="sec-sep"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem">'+
+  '<span class="section-hd" style="border:none;padding:0;margin:0">Guide &amp; Co-Guide</span>'+
+  '<button type="button" class="add-row-btn" onclick="addCoGuide(\''+uid+'-coguide-list\')">&#43; Add Co-Guide</button></div>'+
   '<div class="g3">'+fld('Guide Name',1,'<input type="text" name="guideName" placeholder="Full name">')+fld('Guide ORCID ID',0,'<input type="text" name="guideOrcid" placeholder="0000-0000-0000-0000">')+fld('Guide Designation &amp; Dept',0,'<input type="text" name="guideDesig" placeholder="e.g. Prof., Medicine">')+'</div>'+
-  '<div class="g3">'+fld('Co-Guide Name',0,'<input type="text" name="coGuideName" placeholder="Co-Guide (if any)">')+fld('Co-Guide ORCID ID',0,'<input type="text" name="coGuideOrcid" placeholder="0000-0000-0000-0000">')+fld('Co-Guide Department',0,'<input type="text" name="coGuideDept" placeholder="e.g. Anatomy">')+'</div></div>'+
+  '<div id="'+uid+'-coguide-list">'+coGuideRow(uid,0)+'</div></div>'+
 
   '<div class="sec-sep"><div class="section-hd" style="font-size:.62rem">Ethics Clearance</div>'+
   '<div class="g2">'+fld('IEC Approval Number',1,'<input type="text" name="iecApprovalNumber" placeholder="e.g. SDU/IEC/2024/001">')+'</div></div>'+
@@ -403,6 +413,59 @@ function stuForm(t) {
   '</div></div>';
 }
 
+// ── CO-PI ROW TEMPLATE ──
+function coPiRow(uid, idx) {
+  var rm = idx > 0
+    ? '<button type="button" class="btn-remove" onclick="removeRow(this)" title="Remove">&#10005; Remove</button>'
+    : '';
+  return '<div class="repeater-row g3" style="align-items:flex-end" data-copi-row="'+idx+'">'+
+    '<div class="fld" style="margin:0"><label class="lbl">Co-PI '+(idx+1)+' Name</label>'+
+    '<input type="text" name="coPiName[]" placeholder="Full name"></div>'+
+    '<div class="fld" style="margin:0"><label class="lbl">ORCID ID</label>'+
+    '<input type="text" name="coPiOrcid[]" placeholder="0000-0000-0000-0000"></div>'+
+    '<div style="display:flex;gap:.4rem;align-items:flex-end">'+
+    '<div class="fld" style="margin:0;flex:1"><label class="lbl">Department</label>'+
+    '<input type="text" name="coPiDept[]" placeholder="e.g. Anatomy"></div>'+
+    rm+'</div></div>';
+}
+
+// ── CO-GUIDE ROW TEMPLATE ──
+function coGuideRow(uid, idx) {
+  var rm = idx > 0
+    ? '<button type="button" class="btn-remove" onclick="removeRow(this)" title="Remove">&#10005; Remove</button>'
+    : '';
+  return '<div class="repeater-row g3" style="align-items:flex-end" data-coguide-row="'+idx+'">'+
+    '<div class="fld" style="margin:0"><label class="lbl">Co-Guide '+(idx+1)+' Name</label>'+
+    '<input type="text" name="coGuideName[]" placeholder="Co-Guide name"></div>'+
+    '<div class="fld" style="margin:0"><label class="lbl">ORCID ID</label>'+
+    '<input type="text" name="coGuideOrcid[]" placeholder="0000-0000-0000-0000"></div>'+
+    '<div style="display:flex;gap:.4rem;align-items:flex-end">'+
+    '<div class="fld" style="margin:0;flex:1"><label class="lbl">Department</label>'+
+    '<input type="text" name="coGuideDept[]" placeholder="e.g. Anatomy"></div>'+
+    rm+'</div></div>';
+}
+
+function addCoPi(listId) {
+  var list = document.getElementById(listId);
+  var idx  = list.querySelectorAll('[data-copi-row]').length;
+  var div  = document.createElement('div');
+  div.innerHTML = coPiRow('', idx);
+  list.appendChild(div.firstChild);
+}
+
+function addCoGuide(listId) {
+  var list = document.getElementById(listId);
+  var idx  = list.querySelectorAll('[data-coguide-row]').length;
+  var div  = document.createElement('div');
+  div.innerHTML = coGuideRow('', idx);
+  list.appendChild(div.firstChild);
+}
+
+function removeRow(btn) {
+  var row = btn.closest('[data-copi-row],[data-coguide-row]');
+  if (row) row.remove();
+}
+
 function toggleCTRI(uid) {
   var v=document.getElementById(uid+'-ct-sel').value;
   document.getElementById(uid+'-ctri-wrap').style.display=(v==='Yes')?'grid':'none';
@@ -411,9 +474,28 @@ function toggleCTRI(uid) {
 function submitForm(formType,cardId,sdgId,btnId) {
   var card=document.getElementById(cardId), btn=document.getElementById(btnId);
   var data={formType:formType};
-  card.querySelectorAll('input[name],select[name],textarea[name]').forEach(function(el){ data[el.name]=el.value; });
+
+  // Standard named fields
+  card.querySelectorAll('input[name]:not([name$="[]"]),select[name]:not([name$="[]"]),textarea[name]:not([name$="[]"])').forEach(function(el){ data[el.name]=el.value; });
+
+  // Array fields: Co-PI
+  var coPiNames=[], coPiOrcids=[], coPiDepts=[];
+  card.querySelectorAll('input[name="coPiName[]"]').forEach(function(el){ if(el.value.trim()) coPiNames.push(el.value.trim()); });
+  card.querySelectorAll('input[name="coPiOrcid[]"]').forEach(function(el){ coPiOrcids.push(el.value.trim()); });
+  card.querySelectorAll('input[name="coPiDept[]"]').forEach(function(el){ coPiDepts.push(el.value.trim()); });
+  if(coPiNames.length){ data.coPiNames=coPiNames.join(' | '); data.coPiOrcids=coPiOrcids.join(' | '); data.coPiDepts=coPiDepts.join(' | '); }
+
+  // Array fields: Co-Guide
+  var cgNames=[], cgOrcids=[], cgDepts=[];
+  card.querySelectorAll('input[name="coGuideName[]"]').forEach(function(el){ if(el.value.trim()) cgNames.push(el.value.trim()); });
+  card.querySelectorAll('input[name="coGuideOrcid[]"]').forEach(function(el){ cgOrcids.push(el.value.trim()); });
+  card.querySelectorAll('input[name="coGuideDept[]"]').forEach(function(el){ cgDepts.push(el.value.trim()); });
+  if(cgNames.length){ data.coGuideNames=cgNames.join(' | '); data.coGuideOrcids=cgOrcids.join(' | '); data.coGuideDepts=cgDepts.join(' | '); }
+
+  // SDG
   var sdgEl=document.getElementById(sdgId);
   if(sdgEl){ var sel=[]; sdgEl.querySelectorAll('.sdg-item.on').forEach(function(el){sel.push(el.title);}); data.sdgGoals=sel.join(', '); }
+
   var orig=btn.textContent; btn.textContent='Submitting\u2026'; btn.disabled=true;
   fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
     .then(function(){ btn.textContent='\u2713 Submitted!'; btn.style.background='#16a34a'; showToast('Project submitted successfully!','ok'); setTimeout(function(){btn.textContent=orig;btn.style.background='';btn.disabled=false;},3500); })
@@ -424,6 +506,9 @@ function resetForm(cardId) {
   var card=document.getElementById(cardId);
   card.querySelectorAll('input:not([type=file]),select,textarea').forEach(function(el){el.value='';});
   card.querySelectorAll('.sdg-item.on').forEach(function(el){el.classList.remove('on');});
+  // Remove extra Co-PI rows (keep first)
+  card.querySelectorAll('[data-copi-row]').forEach(function(row,i){ if(i>0) row.remove(); });
+  card.querySelectorAll('[data-coguide-row]').forEach(function(row,i){ if(i>0) row.remove(); });
 }
 
 var _charts = {};
