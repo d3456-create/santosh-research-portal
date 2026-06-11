@@ -149,6 +149,7 @@ tbody tr:hover td{background:#fdf6ee}
       <button class="nav-btn" onclick="goNav('dash',this)">&#128202; Dashboard</button>
       <button class="nav-btn" onclick="goNav('ext',this)">&#127760; Extramural</button>
       <button class="nav-btn" onclick="goNav('int',this)">&#127963; Intramural</button>
+      <button class="nav-btn" onclick="goNav('ipr',this)">&#128196; Patent &amp; Copyright</button>
     </div>
   </div>
 </div>
@@ -253,6 +254,205 @@ tbody tr:hover td{background:#fdf6ee}
   <div id="int-stu-wrap" style="display:none"></div>
 </div>
 
+<!-- ═══════════════════ IPR VIEW ═══════════════════ -->
+<div id="view-ipr" style="display:none">
+  <h2 style="font-size:1.6rem;font-weight:700;margin-bottom:.3rem">Patent &amp; Copyright</h2>
+  <p style="color:#5a5a7a;font-size:.85rem;margin-bottom:1.2rem">Submit patent filings and copyright registrations for your research output.</p>
+  <div class="type-tabs">
+    <button class="type-tab on" onclick="goIpr('patent',this)">&#128196; Patent</button>
+    <button class="type-tab" onclick="goIpr('copyright',this)">&#169; Copyright</button>
+  </div>
+
+  <!-- PATENT FORM -->
+  <div id="ipr-patent-wrap">
+  <div class="card card-accent" id="fc-patent">
+    <div class="section-hd">New Patent Submission</div>
+
+    <!-- S1: Faculty Details -->
+    <div class="sec-sep"><div class="section-hd" style="font-size:.62rem">Section 1 &mdash; Faculty Details</div>
+    <div class="g3">
+      <div class="fld"><label class="lbl req">Faculty Name</label><input type="text" name="pat_facultyName" placeholder="Full name"></div>
+      <div class="fld"><label class="lbl req">Designation</label><input type="text" name="pat_designation" placeholder="e.g. Associate Professor"></div>
+      <div class="fld"><label class="lbl req">Department</label><input type="text" name="pat_department" placeholder="e.g. Pharmacology"></div>
+    </div>
+    <div class="g3">
+      <div class="fld"><label class="lbl req">Institute Name</label>
+        <select name="pat_institute"><option value="">Select College</option><option>Santosh Medical College (SMC)</option><option>Santosh Dental College (SDC)</option><option>Allied Health Sciences (AHS)</option><option>CRF / DBMR</option></select>
+      </div>
+      <div class="fld"><label class="lbl req">Email ID</label><input type="email" name="pat_email" placeholder="name@santosh.ac.in"></div>
+      <div class="fld"><label class="lbl req">Mobile Number</label><input type="tel" name="pat_mobile" placeholder="+91 XXXXX XXXXX"></div>
+    </div></div>
+
+    <!-- S2: Patent Information -->
+    <div class="sec-sep"><div class="section-hd" style="font-size:.62rem">Section 2 &mdash; Patent Information</div>
+    <div class="fld"><label class="lbl req">Patent Title</label><input type="text" name="pat_title" placeholder="Full title of the patent"></div>
+    <div class="g2">
+      <div class="fld"><label class="lbl req">Patent Type</label>
+        <select name="pat_type"><option value="">Select Type</option><option>Utility Patent</option><option>Design Patent</option><option>Plant Patent</option><option>Provisional Patent</option></select>
+      </div>
+      <div class="fld"><label class="lbl req">Patent Domain</label>
+        <select name="pat_domain"><option value="">Select Domain</option><option>Medical</option><option>Dental</option><option>Pharmaceutical</option><option>Biotechnology</option><option>Medical Devices</option><option>Allied Health</option><option>Engineering</option><option>Other</option></select>
+      </div>
+    </div></div>
+
+    <!-- S3: Inventors (dynamic) -->
+    <div class="sec-sep">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem">
+        <span class="section-hd" style="border:none;padding:0;margin:0">Section 3 &mdash; Inventor Details</span>
+        <button type="button" class="add-row-btn" onclick="addInventor()">&#43; Add Inventor</button>
+      </div>
+      <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;font-size:.82rem" id="inventors-table">
+          <thead>
+            <tr>
+              <th style="text-align:left;padding:.5rem .7rem;background:#f5f0e8;border-bottom:1.5px solid #d4c9b0;font-size:.62rem;font-weight:700;letter-spacing:.09em;color:#5a5a7a;text-transform:uppercase">Name</th>
+              <th style="text-align:left;padding:.5rem .7rem;background:#f5f0e8;border-bottom:1.5px solid #d4c9b0;font-size:.62rem;font-weight:700;letter-spacing:.09em;color:#5a5a7a;text-transform:uppercase">Affiliation</th>
+              <th style="text-align:left;padding:.5rem .7rem;background:#f5f0e8;border-bottom:1.5px solid #d4c9b0;font-size:.62rem;font-weight:700;letter-spacing:.09em;color:#5a5a7a;text-transform:uppercase">Role</th>
+              <th style="padding:.5rem .7rem;background:#f5f0e8;border-bottom:1.5px solid #d4c9b0;width:40px"></th>
+            </tr>
+          </thead>
+          <tbody id="inventors-body">
+            <tr data-inv-row="0">
+              <td style="padding:.4rem .5rem"><input type="text" name="inv_name[]" placeholder="Name" style="width:100%"></td>
+              <td style="padding:.4rem .5rem"><input type="text" name="inv_affiliation[]" placeholder="Affiliation" style="width:100%"></td>
+              <td style="padding:.4rem .5rem">
+                <select name="inv_role[]" style="width:100%">
+                  <option value="Principal Inventor">Principal Inventor</option>
+                  <option value="Co-Inventor">Co-Inventor</option>
+                  <option value="Student Inventor">Student Inventor</option>
+                </select>
+              </td>
+              <td style="padding:.4rem .5rem;text-align:center"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- S4: Applicants (dynamic) -->
+    <div class="sec-sep">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem">
+        <span class="section-hd" style="border:none;padding:0;margin:0">Section 4 &mdash; Applicant Details</span>
+        <button type="button" class="add-row-btn" onclick="addApplicant()">&#43; Add Applicant</button>
+      </div>
+      <div id="applicants-list" style="font-size:.82rem;color:#5a5a7a;font-style:italic">No applicants added yet.</div>
+    </div>
+
+    <!-- S5: Patent Status -->
+    <div class="sec-sep"><div class="section-hd" style="font-size:.62rem">Section 5 &mdash; Patent Status</div>
+    <div class="g2">
+      <div class="fld"><label class="lbl req">Current Status</label>
+        <select name="pat_status" id="pat-status-sel" onchange="toggleFilingDetails()">
+          <option value="">Select Status</option>
+          <option value="Filed">Filed</option>
+          <option value="Published">Published</option>
+          <option value="Granted">Granted</option>
+          <option value="Abandoned">Abandoned</option>
+          <option value="Under Examination">Under Examination</option>
+        </select>
+      </div>
+    </div>
+    <div id="filing-details-wrap" style="display:none">
+      <p style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#5a5a7a;margin-bottom:.7rem">Filing Details</p>
+      <div class="g3">
+        <div class="fld"><label class="lbl req">Application Number</label><input type="text" name="pat_appNumber" placeholder="e.g. 202311012345"></div>
+        <div class="fld"><label class="lbl req">Filing Date</label><input type="date" name="pat_filingDate"></div>
+        <div class="fld"><label class="lbl req">Country</label>
+          <select name="pat_country"><option value="India">India</option><option value="USA">USA</option><option value="PCT">PCT (International)</option><option value="Europe">Europe</option><option value="Other">Other</option></select>
+        </div>
+      </div>
+    </div></div>
+
+    <!-- S6: Documents -->
+    <div class="sec-sep"><div class="section-hd" style="font-size:.62rem">Section 6 &mdash; Supporting Documents</div>
+    <p style="font-size:.78rem;color:#5a5a7a;margin-bottom:.8rem">Upload relevant patent documents (PDF, images, Word files). Multiple files allowed.</p>
+    <label style="display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px dashed #d4c9b0;border-radius:6px;padding:1.5rem;cursor:pointer;background:#fdf8f2;transition:border-color .2s" onmouseover="this.style.borderColor='#c8102e'" onmouseout="this.style.borderColor='#d4c9b0'">
+      <span style="font-size:1.6rem;margin-bottom:.4rem">&#128196;</span>
+      <span style="font-size:.85rem;font-weight:700;color:#1a2744">Click to browse files</span>
+      <span style="font-size:.72rem;color:#5a5a7a;margin-top:.3rem">PDF, Images, Word documents supported</span>
+      <input type="file" name="pat_docs" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" style="display:none" onchange="showFileNames(this,'pat-file-list')">
+    </label>
+    <div id="pat-file-list" style="margin-top:.5rem;font-size:.78rem;color:#5a5a7a"></div>
+    </div>
+
+    <!-- Submit -->
+    <div style="display:flex;gap:.8rem;align-items:center;margin-top:1.4rem;padding-top:1rem;border-top:1px solid #d4c9b0">
+      <button class="btn-red" id="btn-patent" type="button" onclick="submitPatent()">Submit Patent &rarr;</button>
+      <button class="btn-out" type="button" onclick="resetPatentForm()">Reset</button>
+      <span style="font-size:.78rem;color:#5a5a7a;margin-left:.3rem">Fields marked <strong style="color:#c8102e">*</strong> are required</span>
+    </div>
+  </div>
+  </div>
+
+  <!-- COPYRIGHT FORM -->
+  <div id="ipr-copyright-wrap" style="display:none">
+  <div class="card card-accent" id="fc-copyright">
+    <div class="section-hd">Copyright Registration Details</div>
+    <div class="sec-sep">
+      <div class="g2">
+        <div class="fld"><label class="lbl">1. Diary Number</label><input type="text" name="cr_diaryNumber" placeholder="Diary / Reference number"></div>
+        <div class="fld"><label class="lbl">2. Filing Date</label><input type="date" name="cr_filingDate"></div>
+      </div>
+      <div class="g2">
+        <div class="fld"><label class="lbl">3. Academic Year</label><input type="text" name="cr_academicYear" placeholder="e.g. 2024-25"></div>
+        <div class="fld"><label class="lbl">4. Calendar Year</label><input type="number" name="cr_calendarYear" placeholder="e.g. 2024" min="2000" max="2099"></div>
+      </div>
+      <div class="fld"><label class="lbl req">5. Title of Work</label><input type="text" name="cr_title" placeholder="Full title of the copyrighted work"></div>
+      <div class="g2">
+        <div class="fld"><label class="lbl req">6. Class of Work</label>
+          <select name="cr_class">
+            <option value="">Select Class</option>
+            <option>Literary Work</option>
+            <option>Dramatic Work</option>
+            <option>Musical Work</option>
+            <option>Artistic Work</option>
+            <option>Cinematograph Film</option>
+            <option>Sound Recording</option>
+            <option>Computer Software</option>
+            <option>Database</option>
+          </select>
+        </div>
+        <div class="fld"><label class="lbl req">7. Author / Faculty Name</label><input type="text" name="cr_authorName" placeholder="Full name of author/faculty"></div>
+      </div>
+      <div class="g2">
+        <div class="fld"><label class="lbl req">8. Department</label><input type="text" name="cr_department" placeholder="e.g. Pharmacology"></div>
+        <div class="fld"><label class="lbl req">9. Status</label>
+          <select name="cr_status">
+            <option value="">Select Status</option>
+            <option value="Applied">Applied</option>
+            <option value="Registered">Registered</option>
+            <option value="Objected">Objected</option>
+            <option value="Abandoned">Abandoned</option>
+          </select>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="fld"><label class="lbl">10. Registration Number <span style="font-weight:400;text-transform:none;letter-spacing:0">(if granted)</span></label><input type="text" name="cr_regNumber" placeholder="e.g. L-12345/2024"></div>
+        <div class="fld"><label class="lbl">11. Registration Date</label><input type="date" name="cr_regDate"></div>
+      </div>
+    </div>
+
+    <!-- Certificate Upload -->
+    <div class="sec-sep">
+      <div class="section-hd" style="font-size:.62rem">12. Copyright Certificate Upload <span style="text-transform:none;letter-spacing:0;font-weight:400">(PDF / Image)</span></div>
+      <label style="display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px dashed #d4c9b0;border-radius:6px;padding:1.5rem;cursor:pointer;background:#fdf8f2;transition:border-color .2s" onmouseover="this.style.borderColor='#c8102e'" onmouseout="this.style.borderColor='#d4c9b0'">
+        <span style="font-size:1.6rem;margin-bottom:.4rem">&#128196;</span>
+        <span style="font-size:.85rem;font-weight:700;color:#1a2744">Click to upload file</span>
+        <input type="file" name="cr_certificate" accept=".pdf,.jpg,.jpeg,.png" style="display:none" onchange="showFileNames(this,'cr-file-list')">
+      </label>
+      <div id="cr-file-list" style="margin-top:.5rem;font-size:.78rem;color:#5a5a7a"></div>
+    </div>
+
+    <!-- Submit -->
+    <div style="display:flex;gap:.8rem;align-items:center;margin-top:1.4rem;padding-top:1rem;border-top:1px solid #d4c9b0">
+      <button class="btn-red" id="btn-copyright" type="button" onclick="submitCopyright()">Submit Copyright &rarr;</button>
+      <button class="btn-out" type="button" onclick="document.getElementById('fc-copyright').querySelectorAll('input:not([type=file]),select').forEach(function(e){e.value='';});document.getElementById('cr-file-list').innerHTML=''">Reset</button>
+      <span style="font-size:.78rem;color:#5a5a7a;margin-left:.3rem">Fields marked <strong style="color:#c8102e">*</strong> are required</span>
+    </div>
+  </div>
+  </div>
+</div>
+
 </div>
 
 
@@ -275,7 +475,7 @@ var SDG_DATA = [
 function goNav(sec,btn) {
   document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('on');});
   if(btn) btn.classList.add('on');
-  ['home','dash','ext','int'].forEach(function(s){ document.getElementById('view-'+s).style.display=(s===sec)?'':'none'; });
+  ['home','dash','ext','int','ipr'].forEach(function(s){ document.getElementById('view-'+s).style.display=(s===sec)?'':'none'; });
   if(sec==='dash') loadDashboard();
   if((sec==='ext'||sec==='int') && !document.getElementById(sec+'-fac-wrap').innerHTML) {
     document.getElementById(sec+'-fac-wrap').innerHTML = facForm(sec);
@@ -717,7 +917,156 @@ function showToast(msg,type){
   setTimeout(function(){t.style.display='none';},4000);
 }
 
-function checkConnection(){
+// ── FILE ENCODE HELPER (base64 for Drive upload via Apps Script) ──
+function encodeFiles(fileList, callback) {
+  if (!fileList || fileList.length === 0) { callback([]); return; }
+  var files = Array.from(fileList);
+  var results = [], done = 0;
+  files.forEach(function(f, i) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      // Strip the data URI prefix (e.g. "data:application/pdf;base64,")
+      var base64 = e.target.result.split(',')[1];
+      results[i] = { name: f.name, type: f.type, data: base64 };
+      done++;
+      if (done === files.length) callback(results);
+    };
+    reader.readAsDataURL(f);
+  });
+}
+
+// ── IPR FUNCTIONS ──────────────────────────────────────────
+
+function goIpr(tab, btn) {
+  btn.parentElement.querySelectorAll('.type-tab').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on');
+  document.getElementById('ipr-patent-wrap').style.display    = (tab==='patent')    ? '' : 'none';
+  document.getElementById('ipr-copyright-wrap').style.display = (tab==='copyright') ? '' : 'none';
+}
+
+function toggleFilingDetails() {
+  var v = document.getElementById('pat-status-sel').value;
+  document.getElementById('filing-details-wrap').style.display = v ? 'block' : 'none';
+}
+
+// Add inventor row to table
+var _invCount = 1;
+function addInventor() {
+  var tbody = document.getElementById('inventors-body');
+  var idx   = _invCount++;
+  var tr    = document.createElement('tr');
+  tr.setAttribute('data-inv-row', idx);
+  tr.innerHTML =
+    '<td style="padding:.4rem .5rem"><input type="text" name="inv_name[]" placeholder="Name" style="width:100%"></td>'+
+    '<td style="padding:.4rem .5rem"><input type="text" name="inv_affiliation[]" placeholder="Affiliation" style="width:100%"></td>'+
+    '<td style="padding:.4rem .5rem">'+
+      '<select name="inv_role[]" style="width:100%">'+
+        '<option value="Principal Inventor">Principal Inventor</option>'+
+        '<option value="Co-Inventor" selected>Co-Inventor</option>'+
+        '<option value="Student Inventor">Student Inventor</option>'+
+      '</select>'+
+    '</td>'+
+    '<td style="padding:.4rem .5rem;text-align:center">'+
+      '<button type="button" class="btn-remove" onclick="this.closest(\'tr\').remove()">&#10005;</button>'+
+    '</td>';
+  tbody.appendChild(tr);
+}
+
+// Add applicant card
+var _appCount = 0;
+function addApplicant() {
+  var list = document.getElementById('applicants-list');
+  // Remove placeholder text on first add
+  if(_appCount === 0) list.innerHTML = '';
+  _appCount++;
+  var div = document.createElement('div');
+  div.className = 'repeater-row';
+  div.setAttribute('data-app-row', _appCount);
+  div.innerHTML =
+    '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem">'+
+      '<span style="font-size:.72rem;font-weight:700;color:#1a2744;letter-spacing:.06em">APPLICANT '+_appCount+'</span>'+
+      '<button type="button" class="btn-remove" onclick="removeApplicant(this)">&#10005; Remove</button>'+
+    '</div>'+
+    '<div class="g3">'+
+      '<div class="fld" style="margin:0"><label class="lbl">Name</label><input type="text" name="app_name[]" placeholder="Full name"></div>'+
+      '<div class="fld" style="margin:0"><label class="lbl">Designation</label><input type="text" name="app_desig[]" placeholder="e.g. Professor"></div>'+
+      '<div class="fld" style="margin:0"><label class="lbl">Affiliation</label><input type="text" name="app_affil[]" placeholder="Institution / Department"></div>'+
+    '</div>';
+  list.appendChild(div);
+}
+
+function removeApplicant(btn) {
+  btn.closest('[data-app-row]').remove();
+  if(document.querySelectorAll('[data-app-row]').length === 0) {
+    _appCount = 0;
+    document.getElementById('applicants-list').innerHTML = '<div style="font-size:.82rem;color:#5a5a7a;font-style:italic">No applicants added yet.</div>';
+  }
+}
+
+function showFileNames(input, listId) {
+  var el = document.getElementById(listId);
+  if(!input.files.length){ el.innerHTML=''; return; }
+  var html = '<div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.4rem">';
+  Array.from(input.files).forEach(function(f){
+    html += '<span style="background:#e8e0d0;border-radius:3px;padding:.2rem .5rem;font-size:.75rem;color:#1a2744">&#128196; '+esc(f.name)+'</span>';
+  });
+  el.innerHTML = html + '</div>';
+}
+
+function submitPatent() {
+  var btn = document.getElementById('btn-patent');
+  var data = { formType: 'patent' };
+  document.getElementById('fc-patent').querySelectorAll('input[name]:not([type=file]),select[name]').forEach(function(el){ data[el.name]=el.value; });
+  // Inventors
+  var invNames=[], invAffils=[], invRoles=[];
+  document.querySelectorAll('#inventors-body input[name="inv_name[]"]').forEach(function(el){ invNames.push(el.value); });
+  document.querySelectorAll('#inventors-body input[name="inv_affiliation[]"]').forEach(function(el){ invAffils.push(el.value); });
+  document.querySelectorAll('#inventors-body select[name="inv_role[]"]').forEach(function(el){ invRoles.push(el.value); });
+  data.inventors = invNames.map(function(n,i){ return n+' ('+invAffils[i]+') — '+invRoles[i]; }).join(' | ');
+  // Applicants
+  var appNames=[];
+  document.querySelectorAll('[data-app-row] input[name="app_name[]"]').forEach(function(el){ if(el.value) appNames.push(el.value); });
+  data.applicants = appNames.join(' | ');
+  // Encode files as base64
+  var fileInput = document.querySelector('#fc-patent input[type=file]');
+  encodeFiles(fileInput ? fileInput.files : [], function(filesArr) {
+    data.files = filesArr;
+    var orig=btn.textContent; btn.textContent='Submitting\u2026'; btn.disabled=true;
+    fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
+      .then(function(){ btn.textContent='\u2713 Submitted!'; btn.style.background='#16a34a'; showToast('Patent submitted successfully!','ok'); setTimeout(function(){btn.textContent=orig;btn.style.background='';btn.disabled=false;},3500); })
+      .catch(function(){ btn.textContent='\u26a0 Error'; btn.style.background='#c8102e'; btn.disabled=false; showToast('Submission failed.','err'); });
+  });
+}
+
+function resetPatentForm() {
+  document.getElementById('fc-patent').querySelectorAll('input:not([type=file]),select').forEach(function(el){el.value='';});
+  document.getElementById('pat-file-list').innerHTML='';
+  document.getElementById('filing-details-wrap').style.display='none';
+  // Reset inventors to one row
+  var tbody=document.getElementById('inventors-body');
+  Array.from(tbody.rows).forEach(function(r,i){if(i>0)r.remove();});
+  tbody.querySelectorAll('input,select').forEach(function(el){el.value=el.tagName==='SELECT'?el.options[0].value:'';});
+  // Reset applicants
+  _appCount=0;
+  document.getElementById('applicants-list').innerHTML='<div style="font-size:.82rem;color:#5a5a7a;font-style:italic">No applicants added yet.</div>';
+}
+
+function submitCopyright() {
+  var btn = document.getElementById('btn-copyright');
+  var data = { formType: 'copyright' };
+  document.getElementById('fc-copyright').querySelectorAll('input[name]:not([type=file]),select[name]').forEach(function(el){ data[el.name]=el.value; });
+  var fileInput = document.querySelector('#fc-copyright input[type=file]');
+  encodeFiles(fileInput ? fileInput.files : [], function(filesArr) {
+    data.files = filesArr;
+    var orig=btn.textContent; btn.textContent='Submitting\u2026'; btn.disabled=true;
+    fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
+      .then(function(){ btn.textContent='\u2713 Submitted!'; btn.style.background='#16a34a'; showToast('Copyright submitted successfully!','ok'); setTimeout(function(){btn.textContent=orig;btn.style.background='';btn.disabled=false;},3500); })
+      .catch(function(){ btn.textContent='\u26a0 Error'; btn.style.background='#c8102e'; btn.disabled=false; showToast('Submission failed.','err'); });
+  });
+}
+
+
+function checkConnection() {
   fetch(SCRIPT_URL+'?action=stats')
     .then(function(){ document.getElementById('conn-dot').className='status-dot dot-green'; document.getElementById('conn-text').textContent='Connected'; })
     .catch(function(){ document.getElementById('conn-dot').className='status-dot dot-red'; document.getElementById('conn-text').textContent='Offline'; });
