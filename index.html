@@ -189,46 +189,52 @@ tbody tr:hover td{background:#fdf6ee}
     <button class="btn-dk btn-sm" onclick="loadDashboard()">&#8635; Refresh</button>
   </div>
 
-  <!-- Stat cards -->
-  <div class="dash-row">
-    <div class="dcard red"><div class="dcard-lbl">Faculty Total</div><div class="dcard-val" id="dash-fac-total">0</div><div class="dcard-sub"><b id="dash-fac-ext">0</b> Ext &nbsp;&middot;&nbsp; <b id="dash-fac-int">0</b> Int</div><div class="split-bar"><div class="split-bar-fill" id="dash-fac-bar" style="background:#c8102e;width:0%"></div></div></div>
-    <div class="dcard navy"><div class="dcard-lbl">Student Total</div><div class="dcard-val" id="dash-stu-total">0</div><div class="dcard-sub"><b id="dash-stu-ext">0</b> Ext &nbsp;&middot;&nbsp; <b id="dash-stu-int">0</b> Int</div><div class="split-bar"><div class="split-bar-fill" id="dash-stu-bar" style="background:#1a2744;width:0%"></div></div></div>
-    <div class="dcard green"><div class="dcard-lbl">Extramural</div><div class="dcard-val" id="dash-ext-total">0</div><div class="dcard-sub"><b id="dash-ext-fac">0</b> Fac &nbsp;&middot;&nbsp; <b id="dash-ext-stu">0</b> Stu</div><div class="split-bar"><div class="split-bar-fill" id="dash-ext-bar" style="background:#16a34a;width:0%"></div></div></div>
-    <div class="dcard amber"><div class="dcard-lbl">Intramural</div><div class="dcard-val" id="dash-int-total">0</div><div class="dcard-sub"><b id="dash-int-fac">0</b> Fac &nbsp;&middot;&nbsp; <b id="dash-int-stu">0</b> Stu</div><div class="split-bar"><div class="split-bar-fill" id="dash-int-bar" style="background:#d97706;width:0%"></div></div></div>
+  <!-- Stat cards row 1: Research -->
+  <div style="font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#5a5a7a;margin-bottom:.5rem">Research Projects</div>
+  <div class="dash-row" style="margin-bottom:.8rem">
+    <div class="dcard red"><div class="dcard-lbl">Faculty Total</div><div class="dcard-val" id="dash-fac-total">—</div><div class="dcard-sub"><b id="dash-fac-ext">—</b> Ext &nbsp;&middot;&nbsp; <b id="dash-fac-int">—</b> Int</div><div class="split-bar"><div class="split-bar-fill" id="dash-fac-bar" style="background:#c8102e;width:0%"></div></div></div>
+    <div class="dcard navy"><div class="dcard-lbl">Student Total</div><div class="dcard-val" id="dash-stu-total">—</div><div class="dcard-sub"><b id="dash-stu-ext">—</b> Ext &nbsp;&middot;&nbsp; <b id="dash-stu-int">—</b> Int</div><div class="split-bar"><div class="split-bar-fill" id="dash-stu-bar" style="background:#1a2744;width:0%"></div></div></div>
+    <div class="dcard green"><div class="dcard-lbl">Extramural</div><div class="dcard-val" id="dash-ext-total">—</div><div class="dcard-sub"><b id="dash-ext-fac">—</b> Fac &nbsp;&middot;&nbsp; <b id="dash-ext-stu">—</b> Stu</div><div class="split-bar"><div class="split-bar-fill" id="dash-ext-bar" style="background:#16a34a;width:0%"></div></div></div>
+    <div class="dcard amber"><div class="dcard-lbl">Intramural</div><div class="dcard-val" id="dash-int-total">—</div><div class="dcard-sub"><b id="dash-int-fac">—</b> Fac &nbsp;&middot;&nbsp; <b id="dash-int-stu">—</b> Stu</div><div class="split-bar"><div class="split-bar-fill" id="dash-int-bar" style="background:#d97706;width:0%"></div></div></div>
   </div>
 
-  <!-- Charts row -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
-    <!-- Pie chart -->
-    <div class="card" style="padding:1.2rem">
-      <div class="section-hd">Submissions by Category</div>
-      <div style="display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap">
-        <canvas id="pie-chart" width="200" height="200"></canvas>
-        <div id="pie-legend" style="display:flex;flex-direction:column;gap:.5rem;font-size:.78rem"></div>
-      </div>
-    </div>
-    <!-- Bar / Histogram -->
-    <div class="card" style="padding:1.2rem">
-      <div class="section-hd">Faculty vs Student Breakdown</div>
-      <canvas id="bar-chart" width="400" height="220"></canvas>
+  <!-- Stat cards row 2: IPR + Total -->
+  <div style="font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#5a5a7a;margin-bottom:.5rem">IPR &amp; Overall</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-bottom:1.5rem">
+    <div class="dcard" style="border-left-color:#065f46"><div class="dcard-lbl">Patents Filed</div><div class="dcard-val" id="dash-patents" style="color:#065f46">—</div><div class="dcard-sub">All patent submissions</div></div>
+    <div class="dcard" style="border-left-color:#5b21b6"><div class="dcard-lbl">Copyrights</div><div class="dcard-val" id="dash-copyrights" style="color:#5b21b6">—</div><div class="dcard-sub">All copyright registrations</div></div>
+    <div class="dcard" style="border-left-color:#374151"><div class="dcard-lbl">Grand Total</div><div class="dcard-val" id="dash-grand-total" style="color:#374151">—</div><div class="dcard-sub">All submissions combined</div></div>
+  </div>
+
+  <!-- Progress bars breakdown -->
+  <div class="card" style="padding:1.2rem;margin-bottom:1rem">
+    <div class="section-hd">Submission Breakdown</div>
+    <div id="dash-breakdown-wrap">
+      <div style="text-align:center;padding:1.5rem;color:#5a5a7a;font-size:.85rem;font-style:italic">Loading data…</div>
     </div>
   </div>
 
-  <!-- Second charts row -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
-    <!-- Donut: Ext vs Int -->
-    <div class="card" style="padding:1.2rem">
-      <div class="section-hd">Extramural vs Intramural</div>
-      <div style="display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap">
-        <canvas id="donut-chart" width="200" height="200"></canvas>
-        <div id="donut-legend" style="display:flex;flex-direction:column;gap:.5rem;font-size:.78rem"></div>
-      </div>
+  <!-- Summary table -->
+  <div class="tbl-wrap">
+    <div class="tbl-head">
+      <span class="tbl-title">Submission Summary by Category</span>
+      <span id="dash-last-updated" style="font-size:.7rem;color:#5a5a7a"></span>
     </div>
-    <!-- Grouped bar: college breakdown placeholder -->
-    <div class="card" style="padding:1.2rem">
-      <div class="section-hd">Submission Trend (by Type)</div>
-      <canvas id="trend-chart" width="400" height="220"></canvas>
-    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Type</th>
+          <th>Role</th>
+          <th style="text-align:right">Count</th>
+          <th style="text-align:right">% of Total</th>
+          <th>Progress</th>
+        </tr>
+      </thead>
+      <tbody id="dash-summary-table">
+        <tr><td colspan="6" class="empty">Loading…</td></tr>
+      </tbody>
+    </table>
   </div>
 </div>
 
@@ -458,7 +464,7 @@ tbody tr:hover td{background:#fdf6ee}
 
 
 <script>
-var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxHfTa7D8S468epRs4Ltg-Ho8oZPhq1OPEwq52lFnpWDIyd2KHtPI3aOOQQxeDmvBfJ/exec";
+var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyXjvJWUnexdCqccDmpUFzdtPzKQPZMYCHRPvO0ewqwfmAyDE4fW_7b-1CI1ZrWcKyW/exec";
 var _allEntries = [];
 var SDG_DATA = [
   {n:1,label:"No Poverty",color:"#E5243B"},{n:2,label:"Zero Hunger",color:"#DDA63A"},
@@ -711,202 +717,115 @@ function resetForm(cardId) {
   card.querySelectorAll('[data-coguide-row]').forEach(function(row,i){ if(i>0) row.remove(); });
 }
 
-var _charts = {};
+function setEl(id,val){ var e=document.getElementById(id); if(e) e.textContent=val; }
+function setBar(id,pct){ var e=document.getElementById(id); if(e) e.style.width=Math.min(pct,100)+'%'; }
 
 function loadDashboard() {
-  fetch(SCRIPT_URL+'?action=stats').then(function(r){return r.json();}).then(function(d){
-    var ef=d.ext_fac||0,es=d.ext_stu||0,if2=d.int_fac||0,is2=d.int_stu||0;
-    updateDashStats(ef,es,if2,is2);
-  }).catch(function(){
-    // Use demo data if API not connected
-    updateDashStats(14,8,11,6);
-  });
-}
+  // Show loading state
+  var tbody = document.getElementById('dash-summary-table');
+  if(tbody) tbody.innerHTML = '<tr><td colspan="6" class="empty">Loading data from server…</td></tr>';
+  var bw = document.getElementById('dash-breakdown-wrap');
+  if(bw) bw.innerHTML = '<div style="text-align:center;padding:1.5rem;color:#5a5a7a;font-size:.85rem;font-style:italic">Loading…</div>';
 
-function updateDashStats(ef,es,if2,is2) {
-  var facT=ef+if2, stuT=es+is2, extT=ef+es, intT=if2+is2, total=facT+stuT;
-  setEl('dash-fac-total',facT); setEl('dash-fac-ext',ef); setEl('dash-fac-int',if2);
-  setEl('dash-stu-total',stuT); setEl('dash-stu-ext',es); setEl('dash-stu-int',is2);
-  setEl('dash-ext-total',extT); setEl('dash-ext-fac',ef); setEl('dash-ext-stu',es);
-  setEl('dash-int-total',intT); setEl('dash-int-fac',if2); setEl('dash-int-stu',is2);
-  setBar('dash-fac-bar',total?facT/total*100:0);
-  setBar('dash-stu-bar',total?stuT/total*100:0);
-  setBar('dash-ext-bar',total?extT/total*100:0);
-  setBar('dash-int-bar',total?intT/total*100:0);
-  drawPie(ef,es,if2,is2);
-  drawBar(ef,es,if2,is2);
-  drawDonut(extT,intT);
-  drawTrend(ef,es,if2,is2);
-}
-
-// ── CANVAS HELPERS ──
-function clearCanvas(id) {
-  var c=document.getElementById(id);
-  if(!c) return null;
-  var ctx=c.getContext('2d');
-  ctx.clearRect(0,0,c.width,c.height);
-  return {c:c,ctx:ctx};
-}
-
-function drawPie(ef,es,if2,is2) {
-  var r=clearCanvas('pie-chart'); if(!r) return;
-  var ctx=r.ctx, cx=100, cy=100, rad=85;
-  var data=[
-    {v:ef,color:'#c8102e',label:'Ext Faculty'},
-    {v:es,color:'#e8494f',label:'Ext Student'},
-    {v:if2,color:'#1a2744',label:'Int Faculty'},
-    {v:is2,color:'#3d5a8a',label:'Int Student'}
-  ];
-  var total=ef+es+if2+is2||1, angle=-Math.PI/2;
-  data.forEach(function(d){
-    var slice=(d.v/total)*2*Math.PI;
-    ctx.beginPath(); ctx.moveTo(cx,cy);
-    ctx.arc(cx,cy,rad,angle,angle+slice);
-    ctx.closePath(); ctx.fillStyle=d.color; ctx.fill();
-    ctx.strokeStyle='#fffdf8'; ctx.lineWidth=2; ctx.stroke();
-    // value label inside slice
-    if(d.v>0){
-      var mid=angle+slice/2;
-      var lx=cx+Math.cos(mid)*rad*0.62, ly=cy+Math.sin(mid)*rad*0.62;
-      ctx.fillStyle='#fff'; ctx.font='bold 12px Georgia,serif';
-      ctx.textAlign='center'; ctx.textBaseline='middle';
-      ctx.fillText(d.v,lx,ly);
-    }
-    angle+=slice;
-  });
-  // legend
-  var leg=document.getElementById('pie-legend');
-  if(leg){ leg.innerHTML=''; data.forEach(function(d){
-    leg.innerHTML+='<div style="display:flex;align-items:center;gap:.4rem">'+
-      '<span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:'+d.color+'"></span>'+
-      '<span style="color:#1a1a2e">'+d.label+' <b style="color:#c8102e">('+d.v+')</b></span></div>';
-  }); }
-}
-
-function drawBar(ef,es,if2,is2) {
-  var r=clearCanvas('bar-chart'); if(!r) return;
-  var ctx=r.ctx, W=r.c.width, H=r.c.height;
-  var groups=[
-    {label:'Ext Faculty',v:ef,color:'#c8102e'},
-    {label:'Ext Student',v:es,color:'#e8494f'},
-    {label:'Int Faculty',v:if2,color:'#1a2744'},
-    {label:'Int Student',v:is2,color:'#3d5a8a'}
-  ];
-  var padL=32,padR=16,padT=16,padB=44;
-  var maxV=Math.max.apply(null,groups.map(function(g){return g.v;}))||1;
-  var bw=(W-padL-padR)/groups.length, gap=bw*0.25;
-  // grid lines
-  ctx.strokeStyle='#e8e0d0'; ctx.lineWidth=1;
-  for(var i=0;i<=4;i++){
-    var y=padT+(H-padT-padB)*i/4;
-    ctx.beginPath(); ctx.moveTo(padL,y); ctx.lineTo(W-padR,y); ctx.stroke();
-    ctx.fillStyle='#5a5a7a'; ctx.font='10px Georgia,serif'; ctx.textAlign='right';
-    ctx.fillText(Math.round(maxV*(4-i)/4),padL-4,y+4);
-  }
-  groups.forEach(function(g,i){
-    var barH=(g.v/maxV)*(H-padT-padB);
-    var x=padL+i*bw+gap/2, y=H-padB-barH, w=bw-gap;
-    // shadow
-    ctx.fillStyle='rgba(0,0,0,.06)';
-    ctx.fillRect(x+2,y+2,w,barH);
-    ctx.fillStyle=g.color;
-    ctx.fillRect(x,y,w,barH);
-    // value on top
-    if(g.v>0){
-      ctx.fillStyle='#1a1a2e'; ctx.font='bold 11px Georgia,serif'; ctx.textAlign='center';
-      ctx.fillText(g.v,x+w/2,y-5);
-    }
-    // label below
-    ctx.fillStyle='#5a5a7a'; ctx.font='9px Georgia,serif'; ctx.textAlign='center';
-    var words=g.label.split(' ');
-    ctx.fillText(words[0],x+w/2,H-padB+14);
-    ctx.fillText(words[1]||'',x+w/2,H-padB+25);
-  });
-}
-
-function drawDonut(extT,intT) {
-  var r=clearCanvas('donut-chart'); if(!r) return;
-  var ctx=r.ctx, cx=100, cy=100, outer=85, inner=48;
-  var data=[
-    {v:extT,color:'#16a34a',label:'Extramural'},
-    {v:intT,color:'#d97706',label:'Intramural'}
-  ];
-  var total=extT+intT||1, angle=-Math.PI/2;
-  data.forEach(function(d){
-    var slice=(d.v/total)*2*Math.PI;
-    ctx.beginPath(); ctx.moveTo(cx+Math.cos(angle)*inner,cy+Math.sin(angle)*inner);
-    ctx.arc(cx,cy,outer,angle,angle+slice);
-    ctx.arc(cx,cy,inner,angle+slice,angle,true);
-    ctx.closePath(); ctx.fillStyle=d.color; ctx.fill();
-    ctx.strokeStyle='#fffdf8'; ctx.lineWidth=2; ctx.stroke();
-    if(d.v>0){
-      var mid=angle+slice/2;
-      var lx=cx+Math.cos(mid)*(inner+(outer-inner)*0.5), ly=cy+Math.sin(mid)*(inner+(outer-inner)*0.5);
-      ctx.fillStyle='#fff'; ctx.font='bold 11px Georgia,serif';
-      ctx.textAlign='center'; ctx.textBaseline='middle';
-      ctx.fillText(d.v,lx,ly);
-    }
-    angle+=slice;
-  });
-  // center label
-  ctx.fillStyle='#1a1a2e'; ctx.font='bold 14px Georgia,serif';
-  ctx.textAlign='center'; ctx.textBaseline='middle';
-  ctx.fillText(extT+intT,cx,cy-6);
-  ctx.fillStyle='#5a5a7a'; ctx.font='9px Georgia,serif';
-  ctx.fillText('Total',cx,cy+8);
-  // legend
-  var leg=document.getElementById('donut-legend');
-  if(leg){ leg.innerHTML=''; data.forEach(function(d){
-    var pct=total?Math.round(d.v/total*100):0;
-    leg.innerHTML+='<div style="display:flex;align-items:center;gap:.4rem">'+
-      '<span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:'+d.color+'"></span>'+
-      '<span style="color:#1a1a2e">'+d.label+' <b style="color:'+d.color+'">('+d.v+' &mdash; '+pct+'%)</b></span></div>';
-  }); }
-}
-
-function drawTrend(ef,es,if2,is2) {
-  var r=clearCanvas('trend-chart'); if(!r) return;
-  var ctx=r.ctx, W=r.c.width, H=r.c.height;
-  // Grouped bar: Faculty vs Student, split by Ext/Int
-  var padL=32,padR=16,padT=16,padB=44;
-  var groups=[
-    {label:'Extramural',vals:[ef,es],colors:['#c8102e','#e8494f']},
-    {label:'Intramural',vals:[if2,is2],colors:['#1a2744','#3d5a8a']}
-  ];
-  var maxV=Math.max(ef,es,if2,is2)||1;
-  var groupW=(W-padL-padR)/groups.length, subW=groupW/2-4, gap=groupW*0.12;
-  // grid
-  ctx.strokeStyle='#e8e0d0'; ctx.lineWidth=1;
-  for(var i=0;i<=4;i++){
-    var y=padT+(H-padT-padB)*i/4;
-    ctx.beginPath(); ctx.moveTo(padL,y); ctx.lineTo(W-padR,y); ctx.stroke();
-    ctx.fillStyle='#5a5a7a'; ctx.font='10px Georgia,serif'; ctx.textAlign='right';
-    ctx.fillText(Math.round(maxV*(4-i)/4),padL-4,y+4);
-  }
-  groups.forEach(function(g,gi){
-    var gx=padL+gi*groupW+gap;
-    g.vals.forEach(function(v,si){
-      var barH=(v/maxV)*(H-padT-padB);
-      var x=gx+si*(subW+2), y=H-padB-barH;
-      ctx.fillStyle='rgba(0,0,0,.05)';
-      ctx.fillRect(x+2,y+2,subW,barH);
-      ctx.fillStyle=g.colors[si];
-      ctx.fillRect(x,y,subW,barH);
-      if(v>0){
-        ctx.fillStyle='#1a1a2e'; ctx.font='bold 10px Georgia,serif'; ctx.textAlign='center';
-        ctx.fillText(v,x+subW/2,y-5);
-      }
+  fetch(SCRIPT_URL+'?action=stats')
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      updateDashStats(
+        d.ext_fac||0, d.ext_stu||0,
+        d.int_fac||0, d.int_stu||0,
+        d.patents||0, d.copyrights||0
+      );
+    })
+    .catch(function(){
+      // Offline / demo mode — show zeros with a note
+      updateDashStats(0,0,0,0,0,0,true);
     });
-    // group label
-    ctx.fillStyle='#5a5a7a'; ctx.font='9px Georgia,serif'; ctx.textAlign='center';
-    ctx.fillText(g.label,gx+(subW*2+2)/2,H-padB+14);
-  });
-  // sub-legend
-  ctx.fillStyle='#c8102e'; ctx.fillRect(padL,H-padB+28,10,8);
-  ctx.fillStyle='#5a5a7a'; ctx.font='9px Georgia,serif'; ctx.textAlign='left';
-  ctx.fillText('Faculty',padL+13,H-padB+36);
-  ctx.fillStyle='#e8494f'; ctx.fillRect(padL+60,H-padB+28,10,8);
-  ctx.fillText('Student',padL+73,H-padB+36);
+}
+
+function updateDashStats(ef,es,if2,is2,pat,cop,offline) {
+  var facT=ef+if2, stuT=es+is2, extT=ef+es, intT=if2+is2, resTotal=facT+stuT, grand=resTotal+pat+cop;
+
+  // Research stat cards
+  setEl('dash-fac-total', facT); setEl('dash-fac-ext', ef);  setEl('dash-fac-int', if2);
+  setEl('dash-stu-total', stuT); setEl('dash-stu-ext', es);  setEl('dash-stu-int', is2);
+  setEl('dash-ext-total', extT); setEl('dash-ext-fac', ef);  setEl('dash-ext-stu', es);
+  setEl('dash-int-total', intT); setEl('dash-int-fac', if2); setEl('dash-int-stu', is2);
+
+  setBar('dash-fac-bar', resTotal ? facT/resTotal*100 : 0);
+  setBar('dash-stu-bar', resTotal ? stuT/resTotal*100 : 0);
+  setBar('dash-ext-bar', resTotal ? extT/resTotal*100 : 0);
+  setBar('dash-int-bar', resTotal ? intT/resTotal*100 : 0);
+
+  // IPR + total cards
+  setEl('dash-patents',    pat);
+  setEl('dash-copyrights', cop);
+  setEl('dash-grand-total', grand);
+
+  // Last updated
+  var lu = document.getElementById('dash-last-updated');
+  if(lu) lu.textContent = offline ? '⚠ Offline – showing zeroes' : 'Updated: '+new Date().toLocaleTimeString();
+
+  // Breakdown progress bars
+  var bw = document.getElementById('dash-breakdown-wrap');
+  if(bw) {
+    var rows = [
+      {label:'Extramural Faculty', val:ef,  color:'#c8102e', total:grand},
+      {label:'Extramural Student', val:es,  color:'#e8494f', total:grand},
+      {label:'Intramural Faculty', val:if2, color:'#1a2744', total:grand},
+      {label:'Intramural Student', val:is2, color:'#3d5a8a', total:grand},
+      {label:'Patents',            val:pat, color:'#065f46', total:grand},
+      {label:'Copyrights',         val:cop, color:'#5b21b6', total:grand}
+    ];
+    var html = '';
+    rows.forEach(function(row){
+      var pct = grand ? Math.round(row.val/grand*100) : 0;
+      html += '<div style="margin-bottom:.85rem">'+
+        '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.3rem">'+
+          '<span style="font-size:.8rem;font-weight:700;color:#1a1a2e">'+row.label+'</span>'+
+          '<span style="font-size:.78rem;color:#5a5a7a"><b style="color:'+row.color+'">'+row.val+'</b> &nbsp;('+pct+'%)</span>'+
+        '</div>'+
+        '<div style="height:9px;border-radius:5px;background:#e8e0d0;overflow:hidden">'+
+          '<div style="height:100%;border-radius:5px;background:'+row.color+';width:'+pct+'%;transition:width .5s"></div>'+
+        '</div>'+
+      '</div>';
+    });
+    bw.innerHTML = html || '<div class="empty">No submissions yet.</div>';
+  }
+
+  // Summary table
+  var tbody = document.getElementById('dash-summary-table');
+  if(tbody) {
+    var items = [
+      {cat:'Research',  type:'Extramural', role:'Faculty',  val:ef,  color:'et-ext-fac'},
+      {cat:'Research',  type:'Extramural', role:'Student',  val:es,  color:'et-ext-stu'},
+      {cat:'Research',  type:'Intramural', role:'Faculty',  val:if2, color:'et-int-fac'},
+      {cat:'Research',  type:'Intramural', role:'Student',  val:is2, color:'et-int-stu'},
+      {cat:'IPR',       type:'Patent',     role:'Faculty',  val:pat, color:'et-int-fac'},
+      {cat:'IPR',       type:'Copyright',  role:'Faculty',  val:cop, color:'et-ext-fac'}
+    ];
+    var tbodyHtml = '';
+    items.forEach(function(item){
+      var pct = grand ? (item.val/grand*100).toFixed(1) : '0.0';
+      var barW = grand ? Math.round(item.val/grand*100) : 0;
+      tbodyHtml += '<tr>'+
+        '<td><b style="color:#1a1a2e">'+item.cat+'</b></td>'+
+        '<td><span class="et '+item.color+'">'+item.type+'</span></td>'+
+        '<td>'+item.role+'</td>'+
+        '<td style="text-align:right;font-weight:700;font-size:.9rem">'+item.val+'</td>'+
+        '<td style="text-align:right;color:#5a5a7a">'+pct+'%</td>'+
+        '<td style="min-width:80px"><div style="height:7px;border-radius:4px;background:#e8e0d0;overflow:hidden">'+
+          '<div style="height:100%;border-radius:4px;background:#1a2744;width:'+barW+'%"></div></div></td>'+
+      '</tr>';
+    });
+    // Total row
+    tbodyHtml += '<tr style="background:#f5f0e8;border-top:2px solid #d4c9b0">'+
+      '<td colspan="3" style="font-weight:700;color:#1a1a2e">Grand Total</td>'+
+      '<td style="text-align:right;font-weight:700;font-size:1rem;color:#c8102e">'+grand+'</td>'+
+      '<td style="text-align:right">100%</td>'+
+      '<td><div style="height:7px;border-radius:4px;background:#c8102e;width:100%"></div></td>'+
+    '</tr>';
+    tbody.innerHTML = tbodyHtml;
+  }
 }
 
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
